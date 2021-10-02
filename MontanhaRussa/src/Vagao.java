@@ -1,9 +1,14 @@
 
 public class Vagao extends Thread{
 
-	public static final int TEMPO_VIAGEM = 20;
-	public static final int QUANTIDADE_CADEIRAS = 2;
+	public int tempoViagem = 20;
+	public int quantidadeCadeiras = 2;
 	
+	
+	public Vagao (int tempoViagem, int quantidadeCadeiras) {
+		this.tempoViagem = tempoViagem;
+		this.quantidadeCadeiras = quantidadeCadeiras;
+	}
 	
 	@Override
 	public void run(){
@@ -14,7 +19,7 @@ public class Vagao extends Thread{
 				e.printStackTrace();
 			}
 
-			Aplicacao.preparativos.release(QUANTIDADE_CADEIRAS);
+			Aplicacao.preparativos.release(this.quantidadeCadeiras);
 			percorreMontanha();
 		}
 

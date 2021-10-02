@@ -2,7 +2,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
-public class Aplicacao {
+import javax.swing.JFrame;
+
+public class Aplicacao extends JFrame{
 
 	public static Semaphore preparativos = new Semaphore(0);
 	public static Semaphore mutex = new Semaphore(1);
@@ -12,15 +14,27 @@ public class Aplicacao {
 	
 	public static void main(String[] args) {
 		
-		Vagao v = new Vagao();
-		Queue<Passageiro> bankQueue = new LinkedList();
+		Janela j = new Janela();
+//		Vagao v = j.Janela();
+		j.Janela();
 		
-		v.start();
 		
 		while(true) {
+
+			if(BotaoVagao.click != 0) {
+				Vagao v = new Vagao(Integer.parseInt(j.cadeiras.getText()), Integer.parseInt(j.viagem.getText()));
+				System.out.println("Quantidade de cadeiras é " + v.quantidadeCadeiras);
+				System.out.println("Quantidade de tempo de viagem é " + v.tempoViagem);
+			}
+		}
+		// Queue<Passageiro> bankQueue = new LinkedList();
+		
+		// v.start();
+		
+		// while(true) {
 			
 			// Quando a gente criasse um novo passageiro
-			bankQueue.add(new Passageiro());
-		}
+		//	bankQueue.add(new Passageiro());
+		// }
 	}
 }
