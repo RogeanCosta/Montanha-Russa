@@ -1,8 +1,9 @@
+package Programa;
 
 public class Vagao extends Thread{
 
-	public static final int TEMPO_VIAGEM = 20;
-	public static final int QUANTIDADE_CADEIRAS = 2;
+	public int tempoDeViagem;
+	public int quantidadeDecadeiras = 1;
 	
 	
 	@Override
@@ -14,14 +15,17 @@ public class Vagao extends Thread{
 				e.printStackTrace();
 			}
 
-			Aplicacao.preparativos.release(QUANTIDADE_CADEIRAS);
+			Aplicacao.preparativos.release(quantidadeDecadeiras);
 			percorreMontanha();
 		}
 
 	}
 	
+	
 	// Método de animação para percorrer montanha:
 	public static void percorreMontanha() {
 		
 	}
+	
+	
 }

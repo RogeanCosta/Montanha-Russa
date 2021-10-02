@@ -1,6 +1,9 @@
+package Programa;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
+
+import Janelas.CriacaoVagao;
 
 public class Aplicacao {
 
@@ -15,12 +18,13 @@ public class Aplicacao {
 		Vagao v = new Vagao();
 		Queue<Passageiro> bankQueue = new LinkedList();
 		
-		v.start();
-		
+		CriacaoVagao window = new CriacaoVagao(v);
+		window.frmCriaoDeVago.setVisible(true);
+
 		while(true) {
-			
-			// Quando a gente criasse um novo passageiro
-			bankQueue.add(new Passageiro());
+			System.out.println("Vagao - " + "Quantidade de cadeiras: " + v.quantidadeDecadeiras + " - Tempo de viagem: " + v.tempoDeViagem);
 		}
+		
+		
 	}
 }
