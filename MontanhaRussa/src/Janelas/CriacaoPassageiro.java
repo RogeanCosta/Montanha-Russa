@@ -25,6 +25,8 @@ public class CriacaoPassageiro {
 	private JTextField tempoEmbarque;
 	private JTextField tempoDesembarque;
 	private JButton botao = new JButton("Criar Passageiro");
+	String texto = "";
+	String pronto = "";
 
 	/**
 	 * Create the application.
@@ -60,7 +62,7 @@ public class CriacaoPassageiro {
 		tempoEmbarque.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a próxima opção com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
 					tempoDesembarque.requestFocus();
 				}
 			}
@@ -79,7 +81,7 @@ public class CriacaoPassageiro {
 		tempoDesembarque.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a próxima opção com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
 					botao.requestFocus();
 				}
 			}
@@ -87,12 +89,12 @@ public class CriacaoPassageiro {
 		
 		
 		/**
-		Botão e configurações
+		Botï¿½o e configuraï¿½ï¿½es
 		 * */
 		botao.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // faz a ação do click com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // faz a aï¿½ï¿½o do click com enter
 					botao.doClick();
 				}
 			}
@@ -105,8 +107,12 @@ public class CriacaoPassageiro {
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());
 				passageiro.tempoDesembarque = Integer.parseInt(tempoDesembarque.getText());
 				Aplicacao.bankQueue.add(passageiro);
+				texto = texto.concat("Passageiro " + (Aplicacao.bankQueue.size()) + " chegou na fila da montanha russa.\n");
+				Animacao.textArea.append(texto);
 				frameCriaPassageiro.dispose();
-				passageiro.start();	
+				passageiro.start();
+				pronto = pronto.concat("Passageiro " + (Aplicacao.bankQueue.size()) + " estÃ¡ pronto para execuÃ§Ã£o.\n");
+				Animacao.textArea.append(pronto);
 			}
 		});
 		botao.setForeground(Color.WHITE);
