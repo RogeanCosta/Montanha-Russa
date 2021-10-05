@@ -1,8 +1,9 @@
-
+package Programa;
 public class Passageiro extends Thread {
 
-	public static final int TEMPO_EMBARQUE = 10;
-	public static final int TEMPO_DESEMBARQUE = 10;
+	public static final int tempoEmbarque = 10;
+	public static final int tempoDesembarque = 10;
+	public Vagao vagao;
 	
 	@Override
 	public void run() {
@@ -26,7 +27,7 @@ public class Passageiro extends Thread {
 			// Aqui vem o método Embarca()
 			embarca();
 			
-			if(Aplicacao.cadeirasOcupadas == Vagao.QUANTIDADE_CADEIRAS) {
+			if(Aplicacao.cadeirasOcupadas == vagao.quantidadeDecadeiras) {
 				Aplicacao.lotado.release();
 			} else {
 				Aplicacao.vagao.release();
