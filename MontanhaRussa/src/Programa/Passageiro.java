@@ -1,8 +1,8 @@
 package Programa;
 public class Passageiro extends Thread {
 
-	public static final int tempoEmbarque = 10;
-	public static final int tempoDesembarque = 10;
+	public int tempoEmbarque = 10;
+	public int tempoDesembarque = 10;
 	public Vagao vagao;
 	
 	@Override

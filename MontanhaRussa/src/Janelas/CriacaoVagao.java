@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
 
 import Programa.Vagao;
 
@@ -34,9 +35,10 @@ public class CriacaoVagao {
 		Cria o frame e configura
 		**/
 		frmCriaoDeVago = new JFrame();
+		frmCriaoDeVago.setResizable(false);
 		frmCriaoDeVago.setBackground(Color.LIGHT_GRAY);
 		frmCriaoDeVago.setTitle("Cria\u00E7\u00E3o de Vag\u00E3o");
-		frmCriaoDeVago.setBounds(100, 100, 314, 131);
+		frmCriaoDeVago.setBounds(100, 100, 316, 133);
 		frmCriaoDeVago.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCriaoDeVago.getContentPane().setLayout(null);
 		
@@ -85,10 +87,11 @@ public class CriacaoVagao {
 		/**
 		Criação e configuração do botão
 		**/ 
-		botao.setBackground(Color.WHITE);
-		botao.setForeground(Color.BLACK);
+		botao.setBackground(new Color(0, 204, 153));
+		botao.setForeground(Color.WHITE);
 		botao.setFont(new Font("Tahoma", Font.BOLD, 14));
 		botao.setBounds(10, 61, 129, 23);
+		//javax.swing.BorderFactory.createEtchedBorder()
 		frmCriaoDeVago.getContentPane().add(botao);
 		botao.addKeyListener(new KeyAdapter() {
 			@Override
@@ -103,7 +106,11 @@ public class CriacaoVagao {
 		       vagao.quantidadeDecadeiras = Integer.parseInt(numeroDeCadeiras.getText());
 		       vagao.tempoDeViagem = Integer.parseInt(tempoDeViagem.getText());
 		       frmCriaoDeVago.setVisible(false);
+		       frmCriaoDeVago.dispose();
+		       Animacao telaPrincipal = new Animacao();
+		       telaPrincipal.frameAnimacao.setVisible(true);
 		    }
 		});
+		
 	}
 }
