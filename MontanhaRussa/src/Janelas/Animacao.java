@@ -12,11 +12,16 @@ import java.awt.GridBagConstraints;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JSlider;
+import javax.swing.JTextPane;
 
 public class Animacao {
 
 	public JFrame frameAnimacao;
-
+	public static JTextArea textArea;
+	
 	/**
 	 * Create the application.
 	 */
@@ -48,5 +53,9 @@ public class Animacao {
 		frameAnimacao.getContentPane().setLayout(null);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 		frameAnimacao.getContentPane().add(btnNewButton);
+		
+		textArea = new JTextArea();
+		textArea.setBounds(518, 22, 307, 152);
+		frameAnimacao.getContentPane().add(textArea);
 	}
 }
