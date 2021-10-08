@@ -1,5 +1,7 @@
 package Programa;
 
+import Janelas.Animacao;
+
 public class Vagao extends Thread{
 
 	public int tempoDeViagem;
@@ -9,6 +11,8 @@ public class Vagao extends Thread{
 	@Override
 	public void run(){
 		while(true) {
+			String pronto = "VagÃ£o esperando embarque.\n";
+			Animacao.textArea.append(pronto);
 			try {
 				Aplicacao.lotado.acquire();
 			} catch (InterruptedException e) {
@@ -16,13 +20,20 @@ public class Vagao extends Thread{
 			}
 
 			Aplicacao.preparativos.release(quantidadeDecadeiras);
+
+			pronto = "VagÃ£o viajando.\n";
+			Animacao.textArea.append(pronto);
+			
 			percorreMontanha();
+			
+			pronto = "VagÃ£o esperando desembarque.\n";
+			Animacao.textArea.append(pronto);
 		}
 
 	}
 	
 	
-	// Método de animação para percorrer montanha:
+	// Mï¿½todo de animaï¿½ï¿½o para percorrer montanha:
 	public static void percorreMontanha() {
 		
 	}

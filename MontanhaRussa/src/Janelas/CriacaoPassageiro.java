@@ -25,8 +25,6 @@ public class CriacaoPassageiro {
 	private JTextField tempoEmbarque;
 	private JTextField tempoDesembarque;
 	private JButton botao = new JButton("Criar Passageiro");
-	String texto = "";
-	String pronto = "";
 
 	/**
 	 * Create the application.
@@ -47,12 +45,12 @@ public class CriacaoPassageiro {
 		
 		JLabel lblNewLabel = new JLabel("Tempo de embarque: ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 11, 152, 21);
+		lblNewLabel.setBounds(10, 11, 176, 21);
 		frameCriaPassageiro.getContentPane().add(lblNewLabel);
 		
 		JLabel lblTempoDeDesembarque = new JLabel("Tempo de desembarque: ");
 		lblTempoDeDesembarque.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTempoDeDesembarque.setBounds(10, 43, 176, 21);
+		lblTempoDeDesembarque.setBounds(10, 43, 185, 21);
 		frameCriaPassageiro.getContentPane().add(lblTempoDeDesembarque);
 		
 		/**
@@ -67,7 +65,7 @@ public class CriacaoPassageiro {
 				}
 			}
 		});
-		tempoEmbarque.setBounds(205, 13, 86, 20);
+		tempoEmbarque.setBounds(205, 14, 86, 20);
 		frameCriaPassageiro.getContentPane().add(tempoEmbarque);
 		tempoEmbarque.setColumns(10);
 		
@@ -99,19 +97,19 @@ public class CriacaoPassageiro {
 				}
 			}
 		});
-		botao.addMouseListener(new MouseAdapter() {
+		botao.addActionListener(new java.awt.event.ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				frameCriaPassageiro.setVisible(false);
 				Passageiro passageiro = new Passageiro();
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());
 				passageiro.tempoDesembarque = Integer.parseInt(tempoDesembarque.getText());
 				Aplicacao.bankQueue.add(passageiro);
-				texto = texto.concat("Passageiro " + (Aplicacao.bankQueue.size()) + " chegou na fila da montanha russa.\n");
-				Animacao.textArea.append(texto);
+				String pronto = "Passageiro " + (Aplicacao.bankQueue.size()) + " chegou na fila da montanha russa.\n";
+				Animacao.textArea.append(pronto);
 				frameCriaPassageiro.dispose();
 				passageiro.start();
-				pronto = pronto.concat("Passageiro " + (Aplicacao.bankQueue.size()) + " está pronto para execução.\n");
+				pronto = "Passageiro " + (Aplicacao.bankQueue.size()) + " está pronto para execução.\n";
 				Animacao.textArea.append(pronto);
 			}
 		});

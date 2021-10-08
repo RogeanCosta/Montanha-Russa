@@ -1,26 +1,26 @@
 package Janelas;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Color;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JSlider;
-import javax.swing.JTextPane;
 
 public class Animacao {
 
 	public JFrame frameAnimacao;
 	public static JTextArea textArea;
+	private JScrollPane scrollPane;
+	private JLabel label;
+	private ImageIcon imagem = new ImageIcon("imagens/teste.jpg");
 	
 	/**
 	 * Create the application.
@@ -35,12 +35,16 @@ public class Animacao {
 	private void initialize() {
 		frameAnimacao = new JFrame();
 		frameAnimacao.setResizable(false);
-		frameAnimacao.setBounds(100, 100, 851, 495);
+		frameAnimacao.setBounds(100, 100, 1077, 588);
 		frameAnimacao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnNewButton = new JButton("Criar passageiro");
-		btnNewButton.setBounds(0, 0, 0, 0);
-		btnNewButton.setBounds(680, 412, 145, 33);
+		btnNewButton.setBounds(834, 343, 146, 36);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(new Color(0, 204, 153));
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -55,7 +59,15 @@ public class Animacao {
 		frameAnimacao.getContentPane().add(btnNewButton);
 		
 		textArea = new JTextArea();
-		textArea.setBounds(518, 22, 307, 152);
+		textArea.setBounds(746, 389, 307, 152);
+		textArea.setEditable(false);
 		frameAnimacao.getContentPane().add(textArea);
+		
+		scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(746, 389, 307, 152);
+		frameAnimacao.getContentPane().add(scrollPane);
 	}
 }
+
+
+
