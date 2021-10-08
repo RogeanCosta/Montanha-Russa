@@ -56,13 +56,13 @@ public class CriacaoVagao {
 		frmCriaoDeVago.getContentPane().add(lblTempoDeViagem);
 		
 		/**
-		Criação e configuração das caixas de texto
+		Criaï¿½ï¿½o e configuraï¿½ï¿½o das caixas de texto
 		**/
 		numeroDeCadeiras = new JTextField();
 		numeroDeCadeiras.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a próxima opção com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
 					tempoDeViagem.requestFocus();
 				}
 			}
@@ -75,7 +75,7 @@ public class CriacaoVagao {
 		tempoDeViagem.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a próxima opção com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
 					botao.requestFocus();
 				}
 			}
@@ -85,7 +85,7 @@ public class CriacaoVagao {
 		tempoDeViagem.setColumns(10);
 		
 		/**
-		Criação e configuração do botão
+		Criaï¿½ï¿½o e configuraï¿½ï¿½o do botï¿½o
 		**/ 
 		botao.setBackground(new Color(0, 204, 153));
 		botao.setForeground(Color.WHITE);
@@ -109,6 +109,9 @@ public class CriacaoVagao {
 		       frmCriaoDeVago.dispose();
 		       Animacao telaPrincipal = new Animacao();
 		       telaPrincipal.frameAnimacao.setVisible(true);
+		       vagao.start();
+		       String pronto = "VagÃ£o foi criado com " + vagao.quantidadeDecadeiras + " cadeiras.\n";
+		       Animacao.textArea.append(pronto);
 		    }
 		});
 		
