@@ -1,13 +1,20 @@
 package Programa;
+
+import Janelas.Animacao;
+
 public class Passageiro extends Thread {
 
 	public int tempoEmbarque = 10;
 	public int tempoDesembarque = 10;
-	public Vagao vagao;
+	public int codigo;
 	
 	@Override
 	public void run() {
 		while(true) {
+			
+			String texto = String.format("Passageiro %d está esperando na fila.\n", codigo);
+			Animacao.textArea.append(texto);
+			
 			// Down vagão
 			try {
 				Aplicacao.vagao.acquire();
@@ -24,10 +31,13 @@ public class Passageiro extends Thread {
 			
 			Aplicacao.cadeirasOcupadas++;
 			
+			texto = String.format("Passageiro %d está embarcando.\n", codigo);
+			Animacao.textArea.append(texto);
+			
 			// Aqui vem o método Embarca()
 			embarca();
 			
-			if(Aplicacao.cadeirasOcupadas == vagao.quantidadeDecadeiras) {
+			if(Aplicacao.cadeirasOcupadas == Aplicacao.v.quantidadeDecadeiras) {
 				Aplicacao.lotado.release();
 			} else {
 				Aplicacao.vagao.release();
@@ -51,6 +61,9 @@ public class Passageiro extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+			texto = String.format("Passageiro %d está desembarcando.\n", codigo);
+			Animacao.textArea.append(texto);
 			
 			desambarcando();
 			

@@ -5,14 +5,14 @@ import Janelas.Animacao;
 public class Vagao extends Thread{
 
 	public int tempoDeViagem;
-	public int quantidadeDecadeiras = 1;
+	public int quantidadeDecadeiras;
 	
 	
 	@Override
 	public void run(){
 		while(true) {
-			String pronto = "Vag√£o esperando embarque.\n";
-			Animacao.textArea.append(pronto);
+			String texto = "Vag„o esperando embarque.\n";
+			//telaPrincipal.canvas.fundo.textArea.append(pronto);
 			try {
 				Aplicacao.lotado.acquire();
 			} catch (InterruptedException e) {
@@ -21,13 +21,13 @@ public class Vagao extends Thread{
 
 			Aplicacao.preparativos.release(quantidadeDecadeiras);
 
-			pronto = "Vag√£o viajando.\n";
-			Animacao.textArea.append(pronto);
+			texto = "Vag„o viajando.\n";
+			//Animacao.textArea.append(pronto);
 			
 			percorreMontanha();
 			
-			pronto = "Vag√£o esperando desembarque.\n";
-			Animacao.textArea.append(pronto);
+			texto = "Vag„o esperando desembarque.\n";
+			//telaPrincipal.canvas.fundo.textArea.append(pronto);
 		}
 
 	}

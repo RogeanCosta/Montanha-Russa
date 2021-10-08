@@ -41,6 +41,7 @@ public class CriacaoVagao {
 		frmCriaoDeVago.setBounds(100, 100, 316, 133);
 		frmCriaoDeVago.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCriaoDeVago.getContentPane().setLayout(null);
+		frmCriaoDeVago.setLocationRelativeTo(null);
 		
 		/**
 		Cria os textos da janela
@@ -107,11 +108,12 @@ public class CriacaoVagao {
 		       vagao.tempoDeViagem = Integer.parseInt(tempoDeViagem.getText());
 		       frmCriaoDeVago.setVisible(false);
 		       frmCriaoDeVago.dispose();
-		       Animacao telaPrincipal = new Animacao();
+		       Animacao telaPrincipal = new Animacao();		       
 		       telaPrincipal.frameAnimacao.setVisible(true);
 		       vagao.start();
-		       String pronto = "Vag√£o foi criado com " + vagao.quantidadeDecadeiras + " cadeiras.\n";
+		       String pronto = "Vag„o foi criado com " + vagao.quantidadeDecadeiras + " cadeiras.\n";
 		       Animacao.textArea.append(pronto);
+		       
 		    }
 		});
 		
