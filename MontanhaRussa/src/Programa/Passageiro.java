@@ -52,6 +52,7 @@ public class Passageiro extends Thread {
 				e.printStackTrace();
 			}
 			
+			
 			// Aqui vem o método viajando
 			viajando();
 		

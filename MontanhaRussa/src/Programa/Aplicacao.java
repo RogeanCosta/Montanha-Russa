@@ -25,7 +25,6 @@ public class Aplicacao {
 		
 		
 		
-		
 		while(true) {
 			System.out.println("Numero de passageiros: " + bankQueue.size());
 			

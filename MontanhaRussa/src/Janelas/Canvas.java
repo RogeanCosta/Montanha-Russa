@@ -61,6 +61,7 @@ public PlanoDeFundo fundo;
 		
 		fundo.pinta(g);						   //pinta imagem de fundo
 		
+		
 	}
 	
 }

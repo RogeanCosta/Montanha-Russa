@@ -43,6 +43,7 @@ public class CriacaoVagao {
 		frmCriaoDeVago.getContentPane().setLayout(null);
 		frmCriaoDeVago.setLocationRelativeTo(null);
 		
+		
 		/**
 		Cria os textos da janela
 		**/

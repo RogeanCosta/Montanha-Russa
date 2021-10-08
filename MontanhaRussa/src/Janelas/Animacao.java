@@ -85,6 +85,7 @@ public class Animacao {
 		frameAnimacao.getContentPane().add(panel1);
 		
 		
+		
 	}
 }
 

@@ -8,6 +8,7 @@ public class Vagao extends Thread{
 	public int quantidadeDecadeiras;
 	
 	
+	
 	@Override
 	public void run(){
 		while(true) {

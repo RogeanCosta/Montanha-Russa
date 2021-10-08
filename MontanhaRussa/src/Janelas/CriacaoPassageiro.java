@@ -33,6 +33,7 @@ public class CriacaoPassageiro {
 		initialize();
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */

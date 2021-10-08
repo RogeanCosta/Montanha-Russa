@@ -28,6 +28,7 @@ public class PlanoDeFundo {
 	
 		g.drawImage(imagem, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
 		
+		
 	}
 	
 	
