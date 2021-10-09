@@ -106,13 +106,12 @@ public class CriacaoPassageiro {
 				Passageiro passageiro = new Passageiro();
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());
 				passageiro.tempoDesembarque = Integer.parseInt(tempoDesembarque.getText());
-				Aplicacao.bankQueue.add(passageiro);
-				passageiro.codigo = Aplicacao.bankQueue.size();
-				String pronto = "Passageiro " + passageiro.codigo + " chegou na fila da montanha russa.\n";
+				Aplicacao.identificador.add(passageiro);
+				String pronto = "Passageiro " + (Aplicacao.identificador.indexOf(passageiro)+1) + " chegou na fila da montanha russa.\n";
 				Animacao.textArea.append(pronto);
 				frameCriaPassageiro.dispose();
 				passageiro.start();
-				pronto = "Passageiro " + passageiro.codigo + " está pronto para execução.\n";
+				pronto = "Passageiro " + (Aplicacao.identificador.indexOf(passageiro)+1) + " está pronto para execução.\n";
 				Animacao.textArea.append(pronto);
 			}
 		});

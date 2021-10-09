@@ -6,14 +6,12 @@ public class Passageiro extends Thread {
 
 	public int tempoEmbarque = 10;
 	public int tempoDesembarque = 10;
-	public int codigo;
+	public String texto;
+	
 	
 	@Override
 	public void run() {
 		while(true) {
-			
-			String texto = String.format("Passageiro %d está esperando na fila.\n", codigo);
-			Animacao.textArea.append(texto);
 			
 			// Down vagão
 			try {
@@ -31,7 +29,7 @@ public class Passageiro extends Thread {
 			
 			Aplicacao.cadeirasOcupadas++;
 			
-			texto = String.format("Passageiro %d está embarcando.\n", codigo);
+			texto = String.format("Passageiro %d está embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
 			Animacao.textArea.append(texto);
 			
 			// Aqui vem o método Embarca()
@@ -63,9 +61,6 @@ public class Passageiro extends Thread {
 				e.printStackTrace();
 			}
 			
-			texto = String.format("Passageiro %d está desembarcando.\n", codigo);
-			Animacao.textArea.append(texto);
-			
 			desambarcando();
 			
 			Aplicacao.cadeirasOcupadas--;
@@ -80,17 +75,20 @@ public class Passageiro extends Thread {
 	}
 	
 	// Método com a animação dos passageiros embarcando
-	public static void embarca() {
-		
+	public void embarca() {
+		texto = String.format("Passageiro %d está esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
+		Animacao.textArea.append(texto);
 	}
 	
 	// Método com a animação do passageiros se divertindo
-	public static void viajando() {
-		
+	public void viajando() {
+		texto = String.format("Passageiro %d está apreciando paisagem.\n", (Aplicacao.identificador.indexOf(this)+1));
+		Animacao.textArea.append(texto);
 	}
 	
 	// Método com a animação dos passageiros desembarcando
-	public static void desambarcando() {
-		
+	public void desambarcando() {
+		texto = String.format("Passageiro %d está desembarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
+		Animacao.textArea.append(texto);
 	}
 }

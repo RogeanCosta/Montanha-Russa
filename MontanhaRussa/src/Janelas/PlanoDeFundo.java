@@ -15,7 +15,7 @@ public class PlanoDeFundo {
 	public PlanoDeFundo() {
 		
 		try {
-			imagem = ImageIO.read(new File("imagens/teste.jpg"));
+			imagem = ImageIO.read(new File("imagens/fundo.png"));
 		} catch (IOException e) {
 			System.out.println("Não foi possível caregar o plado de fundo!!");
 			e.printStackTrace();
@@ -26,7 +26,7 @@ public class PlanoDeFundo {
 	
 	public void pinta(Graphics2D g) {
 	
-		g.drawImage(imagem, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
+		g.drawImage(imagem, 0, -150, imagem.getWidth(), imagem.getHeight(), null);
 		
 		
 	}
