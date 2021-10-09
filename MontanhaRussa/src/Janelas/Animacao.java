@@ -2,25 +2,29 @@ package Janelas;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.GroupLayout.Alignment;
+
+
 
 public class Animacao {
 
 	public JFrame frameAnimacao;
+	public JFrame frameOficial;
 	public static JTextArea textArea;
 	private JScrollPane scrollPane;
-	private JLabel label;
-	private ImageIcon imagem = new ImageIcon("imagens/teste.jpg");
+	private JPanel panel1;
+	private JPanel panel2;
+	private JPanel panel3;
+
+	
 	
 	/**
 	 * Create the application.
@@ -33,10 +37,14 @@ public class Animacao {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frameAnimacao = new JFrame();
+		
+		frameAnimacao = new JFrame();	
+		frameAnimacao.setTitle("Montanha Russa");
 		frameAnimacao.setResizable(false);
-		frameAnimacao.setBounds(100, 100, 1077, 588);
+		frameAnimacao.setSize(1077, 592);
 		frameAnimacao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameAnimacao.setLocationRelativeTo(null);
+		frameAnimacao.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Criar passageiro");
 		btnNewButton.setBounds(834, 343, 146, 36);
@@ -54,7 +62,6 @@ public class Animacao {
 				window.frameCriaPassageiro.setVisible(true);
 			}
 		});
-		frameAnimacao.getContentPane().setLayout(null);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 		frameAnimacao.getContentPane().add(btnNewButton);
 		
@@ -66,6 +73,19 @@ public class Animacao {
 		scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(746, 389, 307, 152);
 		frameAnimacao.getContentPane().add(scrollPane);
+		
+		Canvas canvas = new Canvas();
+		canvas.setBounds(0, 0, 728, 527);
+		canvas.setVisible(true);
+		
+		panel1 = new JPanel();
+		panel1.setBounds(0, 0, 745, 553);
+		panel1.setLayout(null);
+		panel1.add(canvas);
+		frameAnimacao.getContentPane().add(panel1);
+		
+		
+		
 	}
 }
 

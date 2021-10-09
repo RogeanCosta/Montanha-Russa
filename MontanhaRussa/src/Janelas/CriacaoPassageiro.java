@@ -33,6 +33,7 @@ public class CriacaoPassageiro {
 		initialize();
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -42,6 +43,7 @@ public class CriacaoPassageiro {
 		frameCriaPassageiro.setTitle("Cria\u00E7\u00E3o de passageiro");
 		frameCriaPassageiro.setBounds(100, 100, 340, 146);
 		frameCriaPassageiro.getContentPane().setLayout(null);
+		frameCriaPassageiro.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Tempo de embarque: ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -105,11 +107,12 @@ public class CriacaoPassageiro {
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());
 				passageiro.tempoDesembarque = Integer.parseInt(tempoDesembarque.getText());
 				Aplicacao.bankQueue.add(passageiro);
-				String pronto = "Passageiro " + (Aplicacao.bankQueue.size()) + " chegou na fila da montanha russa.\n";
+				passageiro.codigo = Aplicacao.bankQueue.size();
+				String pronto = "Passageiro " + passageiro.codigo + " chegou na fila da montanha russa.\n";
 				Animacao.textArea.append(pronto);
 				frameCriaPassageiro.dispose();
 				passageiro.start();
-				pronto = "Passageiro " + (Aplicacao.bankQueue.size()) + " est√° pronto para execu√ß√£o.\n";
+				pronto = "Passageiro " + passageiro.codigo + " est· pronto para execuÁ„o.\n";
 				Animacao.textArea.append(pronto);
 			}
 		});

@@ -3,7 +3,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
-import Janelas.Animacao;
 import Janelas.CriacaoVagao;
 
 public class Aplicacao {
@@ -14,15 +13,15 @@ public class Aplicacao {
 	public static Semaphore lotado = new Semaphore(0);
 	public static int cadeirasOcupadas = 0;
 	public static Queue<Passageiro> bankQueue = new LinkedList<Passageiro>();
+	public static Vagao v;
 	
 	public static void main(String[] args) {
 		
-		Vagao v = new Vagao();
+		v = new Vagao();
 		
 		
 		CriacaoVagao window = new CriacaoVagao(v);
 		window.frmCriaoDeVago.setVisible(true);
-		
 		
 		
 		
