@@ -14,70 +14,55 @@ public class Passageiro extends Thread {
 		while(true) {
 			
 			// Down vagão
-			try {
-				Aplicacao.vagao.acquire();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			Aplicacao.downVagao();
 			
 			// Down mutex
-			try {
-				Aplicacao.mutex.acquire();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			Aplicacao.downMutex();
 			
 			Aplicacao.cadeirasOcupadas++;
 			
-			texto = String.format("Passageiro %d está embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
+			// Colocar próximas duas instruções dentro do embarca!
+			texto = String.format("Passageiro %d está esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
 			Animacao.textArea.append(texto);
 			
 			// Aqui vem o método Embarca()
 			embarca();
 			
 			if(Aplicacao.cadeirasOcupadas == Aplicacao.v.quantidadeDecadeiras) {
-				Aplicacao.lotado.release();
+				Aplicacao.upLotado();
 			} else {
-				Aplicacao.vagao.release();
+				Aplicacao.upVagao();
 			}
 		
-			Aplicacao.mutex.release();
+			Aplicacao.upMutex();
 			
 			// Preparação para viagem
-			try {
-				Aplicacao.preparativos.acquire();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
+			Aplicacao.downPreparativos();
 			
 			// Aqui vem o método viajando
 			viajando();
 		
 			// Desembarque vai acontecer
-			try {
-				Aplicacao.mutex.acquire();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			Aplicacao.downMutex();
 			
 			desambarcando();
 			
 			Aplicacao.cadeirasOcupadas--;
 			
 			if(Aplicacao.cadeirasOcupadas == 0) {
-				Aplicacao.vagao.release();
+				Aplicacao.upVagao();
 			}
 			
-			Aplicacao.mutex.release();
+			Aplicacao.upMutex();
 		}
 			
 	}
 	
 	// Método com a animação dos passageiros embarcando
 	public void embarca() {
-		texto = String.format("Passageiro %d está esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
+		texto = String.format("Passageiro %d está embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
+	
 	}
 	
 	// Método com a animação do passageiros se divertindo
@@ -88,6 +73,7 @@ public class Passageiro extends Thread {
 	
 	// Método com a animação dos passageiros desembarcando
 	public void desambarcando() {
+		
 		texto = String.format("Passageiro %d está desembarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
 	}
