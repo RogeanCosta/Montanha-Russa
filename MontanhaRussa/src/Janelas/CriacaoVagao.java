@@ -123,7 +123,7 @@ public class CriacaoVagao {
 		       Animacao telaPrincipal = new Animacao();		       
 		       telaPrincipal.frameAnimacao.setVisible(true);
 		       vagao.start();
-		       String pronto = "Vagão foi criado com " + vagao.quantidadeDecadeiras + " cadeiras.\n";
+		       String pronto = "Vagï¿½o foi criado com " + vagao.quantidadeDecadeiras + " cadeiras.\n";
 		       Animacao.textArea.append(pronto);
 		       
 		    }

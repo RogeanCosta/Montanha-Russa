@@ -16,14 +16,13 @@ public class Vagao extends Thread {
 
 	public int velocidade = 1;
 	public int resto;
-	// JLabel lCarro = new JLabel(new
-	// ImageIcon(getClass().getResource("imagens/carrinho.png")));
 	BufferedImage imagem;
 	BufferedImage imagemInvertida;
 	public int posx = 0;
 	public int posy = 370;
 	public boolean status = false;
 	public int direcao = 0;
+	public static String texto;
 
 	public static void VagaoEspera() {
 		Aplicacao.downLotado();
@@ -33,27 +32,23 @@ public class Vagao extends Thread {
 	public void run() {
 		while (true) {
 
-			String texto = "Vagão esperando embarque.\n";
-			Animacao.textArea.append(texto);
+			esperandoEmbarque();
 
 			Aplicacao.downLotado();
 
 			Aplicacao.upPreparativos(quantidadeDecadeiras);
 
-			texto = "Vagão viajando.\n";
+			texto = "Vagï¿½o viajando.\n";
 			Animacao.textArea.append(texto);
 
 			percorre(this);
 
-			Aplicacao.downLotado();
-			texto = "Vagão esperando desembarque.\n";
-			Animacao.textArea.append(texto);
-
+			esperandoDesembarque();
 		}
 
 	}
 
-	// Método de Animação para percorrer a Montanha
+	// Mï¿½todo de Animaï¿½ï¿½o para percorrer a Montanha
 	public static void percorre(Vagao v) {
 		
 		long inicio = System.currentTimeMillis(); 
@@ -71,13 +66,13 @@ public class Vagao extends Thread {
 
 			System.out.println(v.velocidade + " " + v.resto + " " + v.posx);
 			
-			if (v.posx < 777 && v.direcao == 0) { // Enquanto não saiu da tela vai para frente
+			if (v.posx < 777 && v.direcao == 0) { // Enquanto nï¿½o saiu da tela vai para frente
 				v.posx += v.velocidade;
 				if(v.resto != 0) {
 					v.posx += 1;
 					v.resto--;
 				}
-			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto não não saiu da tela anda para esquerda
+			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto nï¿½o nï¿½o saiu da tela anda para esquerda
 				v.posx -= v.velocidade;
 			} else if (v.posx >= 777) { // Assim que sair totalmente da tela altera a direcao
 				v.direcao = 1;
@@ -110,19 +105,43 @@ public class Vagao extends Thread {
 		try {
 			imagem = ImageIO.read(new File("imagens/carrinho.png"));
 		} catch (IOException e) {
-			System.out.println("Não foi possível caregar o plado de fundo!!");
+			System.out.println("Nï¿½o foi possï¿½vel caregar o plado de fundo!!");
 			e.printStackTrace();
 		}
 
 		try {
 			imagemInvertida = ImageIO.read(new File("imagens/carrinhoInvertido.png"));
 		} catch (IOException e) {
-			System.out.println("Não foi possível caregar o plado de fundo!!");
+			System.out.println("Nï¿½o foi possï¿½vel caregar o plado de fundo!!");
 			e.printStackTrace();
 		}
 
 		// configuraJanela();
 		// new Movimento().start();
+	}
+	
+	public static void esperandoEmbarque() {
+		try {
+			sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		texto = "Vagï¿½o esperando embarque.\n";
+		Animacao.textArea.append(texto);
+	}
+	
+	public static void esperandoDesembarque() {
+		try {
+			sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		texto = "Vagï¿½o esperando desembarque.\n";
+		Animacao.textArea.append(texto);
 	}
 
 }

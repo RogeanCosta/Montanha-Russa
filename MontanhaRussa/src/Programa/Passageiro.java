@@ -7,13 +7,18 @@ public class Passageiro extends Thread {
 	public int tempoEmbarque = 10;
 	public int tempoDesembarque = 10;
 	public String texto;
+	public Vagao vagao;
 	
 	
 	@Override
 	public void run() {
 		while(true) {
 			
-			// Down vagão
+			// Colocar prï¿½ximas duas instruï¿½ï¿½es dentro do embarca!
+			texto = String.format("Passageiro %d estï¿½ esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
+			Animacao.textArea.append(texto);
+			
+			// Down vagï¿½o
 			Aplicacao.downVagao();
 			
 			// Down mutex
@@ -21,11 +26,7 @@ public class Passageiro extends Thread {
 			
 			Aplicacao.cadeirasOcupadas++;
 			
-			// Colocar próximas duas instruções dentro do embarca!
-			texto = String.format("Passageiro %d está esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
-			Animacao.textArea.append(texto);
-			
-			// Aqui vem o método Embarca()
+			// Aqui vem o mï¿½todo Embarca()
 			embarca();
 			
 			if(Aplicacao.cadeirasOcupadas == Aplicacao.v.quantidadeDecadeiras) {
@@ -36,10 +37,10 @@ public class Passageiro extends Thread {
 		
 			Aplicacao.upMutex();
 			
-			// Preparação para viagem
+			// Preparaï¿½ï¿½o para viagem
 			Aplicacao.downPreparativos();
 			
-			// Aqui vem o método viajando
+			// Aqui vem o mï¿½todo viajando
 			viajando();
 		
 			// Desembarque vai acontecer
@@ -58,23 +59,33 @@ public class Passageiro extends Thread {
 			
 	}
 	
-	// Método com a animação dos passageiros embarcando
+	// Mï¿½todo com a animaï¿½ï¿½o dos passageiros embarcando
 	public void embarca() {
-		texto = String.format("Passageiro %d está embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
+		texto = String.format("Passageiro %d estï¿½ embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
 	
 	}
 	
-	// Método com a animação do passageiros se divertindo
+	// Mï¿½todo com a animaï¿½ï¿½o do passageiros se divertindo
 	public void viajando() {
-		texto = String.format("Passageiro %d está apreciando paisagem.\n", (Aplicacao.identificador.indexOf(this)+1));
+		texto = String.format("Passageiro %d estï¿½ apreciando paisagem.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
+		
+		long I = System.currentTimeMillis();
+		while ((System.currentTimeMillis() - I) / 1000 <= vagao.tempoDeViagem) {
+		}
+		
 	}
 	
-	// Método com a animação dos passageiros desembarcando
+	// Mï¿½todo com a animaï¿½ï¿½o dos passageiros desembarcando
 	public void desambarcando() {
-		
-		texto = String.format("Passageiro %d está desembarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
+		try {
+			sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		texto = String.format("Passageiro %d estï¿½ desembarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
 	}
 }

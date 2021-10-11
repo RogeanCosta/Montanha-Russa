@@ -104,6 +104,7 @@ public class CriacaoPassageiro {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				frameCriaPassageiro.setVisible(false);
 				Passageiro passageiro = new Passageiro();
+				passageiro.vagao = Aplicacao.v;
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());
 				passageiro.tempoDesembarque = Integer.parseInt(tempoDesembarque.getText());
 				Aplicacao.identificador.add(passageiro);
@@ -111,8 +112,6 @@ public class CriacaoPassageiro {
 				Animacao.textArea.append(pronto);
 				frameCriaPassageiro.dispose();
 				passageiro.start();
-				pronto = "Passageiro " + (Aplicacao.identificador.indexOf(passageiro)+1) + " está pronto para execução.\n";
-				Animacao.textArea.append(pronto);
 			}
 		});
 		botao.setForeground(Color.WHITE);
