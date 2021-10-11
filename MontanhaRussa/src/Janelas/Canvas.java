@@ -42,17 +42,6 @@ public PlanoDeFundo fundo;
 		//atualiza o estado do jogo
 	}
 	
-	
-	//Função para controlar a velocidade
-	private void dorme(){
-		try {
-			Thread.sleep(16);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
 	//Metodo que pinta a tela
 	@Override
 	public void paintComponent (Graphics g2) {  //metodo coloca algo na tela para printar

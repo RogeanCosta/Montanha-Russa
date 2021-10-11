@@ -15,6 +15,59 @@ public class Aplicacao {
 	public static  List<Passageiro> identificador = new ArrayList<Passageiro>();
 	public static Vagao v;
 	
+	
+	public static void downVagao() {
+		try {
+			vagao.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void upVagao() {
+		vagao.release();
+	}
+	
+	public static void downMutex() {
+		try {
+			mutex.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void upMutex() {
+		mutex.release();
+	}
+	
+	public static void downLotado() {
+		try {
+			lotado.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void upLotado() {
+		lotado.release();
+	}
+	
+	public static void downPreparativos() {
+		try {
+			preparativos.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void upPreparativos() {
+		preparativos.release();
+	}
+	
+	public static void upPreparativos(int cadeiras) {
+		preparativos.release(cadeiras);
+	}
+	
 	public static void main(String[] args) {
 		
 		v = new Vagao();
