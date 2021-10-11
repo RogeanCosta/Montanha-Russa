@@ -106,9 +106,18 @@ public class CriacaoVagao {
 			}
 		});
 		botao.addActionListener(new java.awt.event.ActionListener() {
-		    public void actionPerformed(java.awt.event.ActionEvent evt) {  
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		       int decimal;
+		    	
 		       vagao.quantidadeDecadeiras = Integer.parseInt(numeroDeCadeiras.getText());
 		       vagao.tempoDeViagem = Integer.parseInt(tempoDeViagem.getText());
+		       
+		       vagao.velocidade =  (int) (112/vagao.tempoDeViagem);
+//		       decimal = (vagao.tempoDeViagem % );
+		       
+		       decimal = (112 % vagao.tempoDeViagem) * vagao.tempoDeViagem;
+		       vagao.resto = decimal;
+		       
 		       frmCriaoDeVago.setVisible(false);
 		       frmCriaoDeVago.dispose();
 		       Animacao telaPrincipal = new Animacao();		       
