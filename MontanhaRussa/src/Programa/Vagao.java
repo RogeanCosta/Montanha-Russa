@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -16,8 +14,8 @@ public class Vagao extends Thread {
 	public int tempoDeViagem;
 	public int quantidadeDecadeiras;
 
-	public int velocidade = 15; 
-	public int velocidadeInv = -15;
+	public int velocidade = 1;
+	public int resto;
 	// JLabel lCarro = new JLabel(new
 	// ImageIcon(getClass().getResource("imagens/carrinho.png")));
 	BufferedImage imagem;
@@ -27,50 +25,10 @@ public class Vagao extends Thread {
 	public boolean status = false;
 	public int direcao = 0;
 
-	// Referente a Delay
-	int segundosRestantes = 15;
-	Timer tempo = new Timer();
-	
-	TimerTask delay = new TimerTask() {
-		
-		@Override
-		public void run() {
-			if(tempoDeViagem-- > 0) {
-				System.out.println(posx + " " + direcao + " " + status);
-			
-				if (posx < 777 && direcao == 0 ) {    		//Enquanto não saiu da tela vai para frente
-					posx += velocidade;
-	
-				} else if (direcao == 1 && posx > -350){		//Enquanto não não saiu da tela anda para esquerda
-					posx -= velocidade;
-				
-				}
-			
-				if (posx >= 777) {				 		//Assim que sair totalmente da tela altera a direcao
-					direcao = 1;
-				}
-				
-				if (posx <= -350){											//Assim que sai da tela pela esquerda altera a direcao
-					direcao = 0;
-					status = true;
-					System.out.println("TESTEEE");
-				}
-			} else {
-				delay.cancel();
-			}
-		}
-	};
-	
-	
-//	@Override
-//	public void start() {
-//		tempo.scheduleAtFixedRate(delay, 1000, 1000);
-//	}
-	
 	public static void VagaoEspera() {
 		Aplicacao.downLotado();
 	}
-	
+
 	@Override
 	public void run() {
 		while (true) {
@@ -90,25 +48,50 @@ public class Vagao extends Thread {
 			Aplicacao.downLotado();
 			texto = "Vagão esperando desembarque.\n";
 			Animacao.textArea.append(texto);
-			
+
 		}
 
 	}
 
-	// Metodo de animacao para percorrer montanha:
+	// Método de Animação para percorrer a Montanha
 	public static void percorre(Vagao v) {
-//			try{
-//				sleep(10);
-//			} catch(Exception e) {					
-//			}
-			// v.start();
-			v.velocidade = 1556 * 60 / v.tempoDeViagem;
 		
-			try {
-				v.tempo.scheduleAtFixedRate(v.delay, 1000, 1000);
-			} catch (Exception e) {
+		long inicio = System.currentTimeMillis(); 
+		long fim = System.currentTimeMillis(); 
+		int tempo; 
+		
+		do {
+			tempo = (int)(fim - inicio)/1000; 
+			Animacao.cronometro.setText(String.format("%d", tempo)); 			
+			
+			// Temporizador
+			long I = System.currentTimeMillis();
+			while (System.currentTimeMillis() - I < 50) {
 			}
-		System.out.println("---------------------------------------");
+
+			System.out.println(v.velocidade + " " + v.resto + " " + v.posx);
+			
+			if (v.posx < 777 && v.direcao == 0) { // Enquanto não saiu da tela vai para frente
+				v.posx += v.velocidade;
+				if(v.resto-- != 0)
+					v.posx += 1;
+			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto não não saiu da tela anda para esquerda
+				v.posx -= v.velocidade;
+			} else if (v.posx >= 777) { // Assim que sair totalmente da tela altera a direcao
+				v.direcao = 1;
+			} else { // Assim que sai da tela pela esquerda altera a direcao
+				v.direcao = 0;
+				v.status = true;
+			}
+
+			 fim = System.currentTimeMillis(); 
+			 tempo = (int)(fim - inicio)/1000; 
+			 Animacao.cronometro.setText(String.format("%d", tempo)); 
+		
+		} while (v.status == false || v.posx < 0);
+
+		// Animacao.textArea.append(String.format("%d", tempo)); 
+		v.status = false;
 	}
 
 	public void pinta(Graphics2D g) {
