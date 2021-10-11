@@ -73,8 +73,10 @@ public class Vagao extends Thread {
 			
 			if (v.posx < 777 && v.direcao == 0) { // Enquanto não saiu da tela vai para frente
 				v.posx += v.velocidade;
-				if(v.resto-- != 0)
+				if(v.resto != 0) {
 					v.posx += 1;
+					v.resto--;
+				}
 			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto não não saiu da tela anda para esquerda
 				v.posx -= v.velocidade;
 			} else if (v.posx >= 777) { // Assim que sair totalmente da tela altera a direcao

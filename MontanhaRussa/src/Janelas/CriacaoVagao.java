@@ -113,7 +113,7 @@ public class CriacaoVagao {
 		       vagao.tempoDeViagem = Integer.parseInt(tempoDeViagem.getText());
 		       
 		       vagao.velocidade =  (int) (112/vagao.tempoDeViagem);
-		       // decimal = (vagao.tempoDeViagem % );
+//		       decimal = (vagao.tempoDeViagem % );
 		       
 		       decimal = (112 % vagao.tempoDeViagem) * vagao.tempoDeViagem;
 		       vagao.resto = decimal;
