@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -19,10 +21,12 @@ public class Vagao extends Thread {
 	BufferedImage imagem;
 	BufferedImage imagemInvertida;
 	public int posx = 0;
-	public int posy = 370;
+	public int posy = 385;
 	public boolean status = false;
 	public int direcao = 0;
 	public static String texto;
+	public static int []posCadeiras = {295, 265, 225, 195, 155, 125, 90, 60, 20, -10};
+	public boolean parou;
 
 	public static void VagaoEspera() {
 		Aplicacao.downLotado();
@@ -54,6 +58,7 @@ public class Vagao extends Thread {
 		long inicio = System.currentTimeMillis(); 
 		long fim = System.currentTimeMillis(); 
 		int tempo; 
+		v.parou = false;
 		
 		do {
 			tempo = (int)(fim - inicio)/1000; 
@@ -64,7 +69,7 @@ public class Vagao extends Thread {
 			while (System.currentTimeMillis() - I < 50) {
 			}
 
-			System.out.println(v.velocidade + " " + v.resto + " " + v.posx);
+//			System.out.println(v.velocidade + " " + v.resto + " " + v.posx);
 			
 			if (v.posx < 777 && v.direcao == 0) { // Enquanto n�o saiu da tela vai para frente
 				v.posx += v.velocidade;
@@ -87,7 +92,7 @@ public class Vagao extends Thread {
 		
 		} while (v.status == false || v.posx < 0);
 
-		// Animacao.textArea.append(String.format("%d", tempo)); 
+		v.parou = true;
 		v.status = false;
 	}
 
@@ -115,17 +120,17 @@ public class Vagao extends Thread {
 			System.out.println("N�o foi poss�vel caregar o plado de fundo!!");
 			e.printStackTrace();
 		}
-
-		// configuraJanela();
-		// new Movimento().start();
 	}
 	
-	public static void esperandoEmbarque() {
-		try {
-			sleep(4000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void esperandoEmbarque() {
+		int totalTempoEmbarque = 0;
+		
+		for (int i = 0; i < quantidadeDecadeiras; i++) {
+			totalTempoEmbarque += Aplicacao.identificador.get(i).tempoEmbarque;
+		}
+		
+		long I = System.currentTimeMillis();
+		while ((System.currentTimeMillis() - I) / 1000 <= totalTempoEmbarque) {
 		}
 		
 		texto = "Vag�o esperando embarque.\n";
@@ -133,12 +138,6 @@ public class Vagao extends Thread {
 	}
 	
 	public static void esperandoDesembarque() {
-		try {
-			sleep(4000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		texto = "Vag�o esperando desembarque.\n";
 		Animacao.textArea.append(texto);

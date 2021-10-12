@@ -104,6 +104,7 @@ public class CriacaoPassageiro {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				frameCriaPassageiro.setVisible(false);
 				Passageiro passageiro = new Passageiro();
+//				passageiro.entrarNaFila(passageiro);
 				passageiro.vagao = Aplicacao.v;
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());
 				passageiro.tempoDesembarque = Integer.parseInt(tempoDesembarque.getText());

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import Programa.Aplicacao;
+import Programa.Passageiro;
 import Programa.Vagao;
 
 public class Canvas extends JPanel implements Runnable{
@@ -21,10 +22,8 @@ public PlanoDeFundo fundo;
 		gameloop.start();
 	}
 
-
-
 	@Override
-	public void run () {   //isso é uma thread
+	public void run () {   //isso ï¿½ uma thread
 		while(true) {
 			//atualiza
 			atualiza();
@@ -49,7 +48,10 @@ public PlanoDeFundo fundo;
 		
 		Graphics2D g = (Graphics2D) g2.create();
 		
-		fundo.pinta(g);						   //pinta imagem de fundo
+		fundo.pinta(g);						   //pinta imagem de fundo		
+		for(Passageiro p : Aplicacao.identificador) {
+			p.pinta(g);
+		}
 		Aplicacao.v.pinta(g);
 		
 	}

@@ -8,7 +8,7 @@ import Janelas.CriacaoVagao;
 public class Aplicacao {
 
 	public static Semaphore preparativos = new Semaphore(0);
-	public static Semaphore mutex = new Semaphore(1);
+	public static Semaphore mutex = new Semaphore(1, true);
 	public static Semaphore vagao = new Semaphore(1, true);
 	public static Semaphore lotado = new Semaphore(0);
 	public static int cadeirasOcupadas = 0;
