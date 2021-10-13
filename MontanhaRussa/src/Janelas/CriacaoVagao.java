@@ -112,9 +112,9 @@ public class CriacaoVagao {
 		       vagao.quantidadeDecadeiras = Integer.parseInt(numeroDeCadeiras.getText());
 		       vagao.tempoDeViagem = Integer.parseInt(tempoDeViagem.getText());
 		       
-		       vagao.velocidade =  (int) (112/vagao.tempoDeViagem);
+		       vagao.velocidade =  (int) (2254 - vagao.posx) / (20 * vagao.tempoDeViagem);
 		       
-		       decimal = (112 % vagao.tempoDeViagem) * vagao.tempoDeViagem;
+		       decimal = (2254 - vagao.posx) % (20 * vagao.tempoDeViagem);
 		       vagao.resto = decimal;
 		       
 		       frmCriaoDeVago.setVisible(false);

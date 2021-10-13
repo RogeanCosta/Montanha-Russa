@@ -22,7 +22,7 @@ public class Animacao {
 	public static JTextArea textArea;
 	public static JTextArea cronometro;
 	private JScrollPane scrollPane;
-	private JPanel panel1;
+	public static JPanel panel1;
 
 
 	
