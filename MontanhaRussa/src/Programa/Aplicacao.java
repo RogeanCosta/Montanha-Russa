@@ -9,10 +9,12 @@ public class Aplicacao {
 
 	public static Semaphore preparativos = new Semaphore(0);
 	public static Semaphore mutex = new Semaphore(1, true);
+	public static Semaphore fila = new Semaphore(1, true);
 	public static Semaphore vagao = new Semaphore(1, true);
 	public static Semaphore lotado = new Semaphore(0);
+	public static Semaphore desembarque = new Semaphore(0);
 	public static int cadeirasOcupadas = 0;
-	public static  List<Passageiro> identificador = new ArrayList<Passageiro>();
+	public static List<Passageiro> identificador = new ArrayList<Passageiro>();
 	public static Vagao v;
 	
 	
@@ -66,6 +68,30 @@ public class Aplicacao {
 	
 	public static void upPreparativos(int cadeiras) {
 		preparativos.release(cadeiras);
+	}
+	
+	public static void upDesembarque() {
+		desembarque.release();
+	}
+	
+	public static void downDesembarque() {
+		try {
+			desembarque.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void downFila( ) {
+		try {
+			fila.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void upFila() {
+		fila.release();
 	}
 	
 	public static void main(String[] args) {

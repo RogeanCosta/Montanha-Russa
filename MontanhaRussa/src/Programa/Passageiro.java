@@ -11,8 +11,8 @@ import javax.imageio.ImageIO;
 
 public class Passageiro extends Thread {
 
-	public int tempoEmbarque = 10;
-	public int tempoDesembarque = 10;
+	public int tempoEmbarque;
+	public int tempoDesembarque;
 	public String texto;
 	public Vagao vagao;
 	public BufferedImage personagemAndando[];
@@ -20,19 +20,24 @@ public class Passageiro extends Thread {
 	public int indiceImagem = 0;
 	public int status = 0;
 	public int direcao = 0;
-	public int posx = 700;
+	public int posx = 760;
 	public int posy = 540;
-	public int velocidadeEmbarque;
-	public int velocidadeDesembarque;
 	public int cadeiraPassageiroInvertido;
 	public int cadeiraPassageiro;
-	
+	public static int posicao;
+	public static int []posFila = {60, 120, 180, 240, 300, 360, 420, 480, 540, 600};
 	
 	@Override
 	public void run() {
 		while(true) {
-			
+			Aplicacao.downFila();
 			entrarNaFila();
+			Aplicacao.upFila();
+			
+			while (posicao != 1) {
+				Aplicacao.downFila();
+				entrarNaFila();
+			}
 			
 			// Colocar pr�ximas duas instru��es dentro do embarca!
 			texto = String.format("Passageiro %d est� esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
@@ -71,6 +76,7 @@ public class Passageiro extends Thread {
 			Aplicacao.cadeirasOcupadas--;
 			
 			if(Aplicacao.cadeirasOcupadas == 0) {
+				Aplicacao.upDesembarque();
 				Aplicacao.upVagao();
 			}
 			
@@ -79,8 +85,31 @@ public class Passageiro extends Thread {
 			
 	}
 	
+	public void organizaFila(int posicao) {
+		while (posx != (posFila[posicao])) {
+			long I = System.currentTimeMillis();
+			while (System.currentTimeMillis() - I < 50) {
+			}
+			
+			posx -= 10; // tem que ser 5
+			indiceImagem++;
+			
+			if (indiceImagem == 20) {
+				indiceImagem = 0;
+			}
+		}
+	}
+	
 	// M�todo com a anima��o dos passageiros embarcando
 	public void embarca() {
+		int velocidadeEmbarque;
+		int resto;
+		
+		posicao--;
+		
+		organizaFila(0);
+		direcao = 1;
+		
 		texto = String.format("Passageiro %d est� embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
 		
@@ -95,19 +124,49 @@ public class Passageiro extends Thread {
 			}
 		}
 		
+		velocidadeEmbarque = (int) (125 + vagao.posCadeiras[cont] + vagao.posx) 
+				/ (20 * tempoEmbarque);
+		
+		resto = (125 + vagao.posCadeiras[cont] + vagao.posx) % (20 * tempoEmbarque);
+		
 		cadeiraPassageiroInvertido = 9 - cont;
 		cadeiraPassageiro = cont;
 		
 		do {
+			indiceImagem++;
+			
+			if (indiceImagem == 20) {
+				indiceImagem = 0;
+			}
+			
+			long I = System.currentTimeMillis();
+			while (System.currentTimeMillis() - I < 50) {
+			}
+			
 			tempo = (int)(fim - inicio)/1000; 
 			Animacao.cronometro.setText(String.format("%d", tempo)); 
 			
 			fim = System.currentTimeMillis();
 			
-			posy = 400;
-			direcao = 1;
-			posx = vagao.posCadeiras[cont] + vagao.posx;
-			posy = 355;
+			if (posy > 430) {
+				if(resto != 0) {
+					posy -= 1;
+					resto--;
+				}
+				posy -= velocidadeEmbarque;
+			} else if (posx < vagao.posCadeiras[cont] + vagao.posx) {
+				if(resto != 0) {
+					posx += 1;
+					resto--;
+				}
+				posx += velocidadeEmbarque;
+			} else if(posy >= 250) {
+				if(resto != 0) {
+					posy -= 1;
+					resto--;
+				}
+				posy -= velocidadeEmbarque;
+			}
 			
 		} while (tempo < tempoEmbarque);
 		
@@ -117,7 +176,6 @@ public class Passageiro extends Thread {
 		while (System.currentTimeMillis() - I < 500) {
 		}
 			
-		
 		status = 1;
 		indiceImagem = 0;
 	
@@ -146,23 +204,87 @@ public class Passageiro extends Thread {
 			if (indiceImagem == 16) {
 				indiceImagem = 0;
 			}
-			System.out.println(""); // importante!!!! NÃO RETIRAR NUNCA!
+			System.out.print(""); // importante!!!! NÃO RETIRAR NUNCA!
 		} while (vagao.parou == false);
 		
 		
 		// Esperar vagão parar
 		long I = System.currentTimeMillis();
-		while ((System.currentTimeMillis() - I) / 1000 <= vagao.tempoDeViagem) {
+		while ((System.currentTimeMillis() - I) / 1000 <= 1) {
 		}
-		
-		
-		
 	}
 	
 	// M�todo com a anima��o dos passageiros desembarcando
 	public void desambarcando() {
-		texto = String.format("Passageiro %d est� desembarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
+		int tempoAguardo = 0;
+		int velocidadeDesembarque;
+		int resto = 0;
+		
+		texto = String.format("Passageiro %d est� desembarcando.\n", 
+				(Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
+		
+		for (int i = Aplicacao.identificador.indexOf(this); i > 0; i--) {
+			tempoAguardo += Aplicacao.identificador.get(i).tempoDesembarque;
+		}
+		
+		status = 0;
+		indiceImagem = 0;
+		
+		
+		long inicio = System.currentTimeMillis();
+		int tempo = (int) (System.currentTimeMillis() - inicio) / 1000;
+		
+		velocidadeDesembarque = (int) (890 + vagao.posx - vagao.posCadeiras[cadeiraPassageiro]) 
+				/ (20 * tempoDesembarque);
+		
+		resto = (890 + vagao.posx - vagao.posCadeiras[cadeiraPassageiro]) 
+				% (20 * tempoDesembarque);
+		
+		do {
+			long I = System.currentTimeMillis();
+			while (System.currentTimeMillis() - I < 50) {
+			}
+			
+			indiceImagem++;
+			
+			if (indiceImagem == 20) {
+				indiceImagem = 0;
+			}
+			
+			Animacao.cronometro.setText(String.format("%d", tempo));
+			tempo = (int)(System.currentTimeMillis() - inicio) / 1000;
+			
+			if (posy < 430) {
+				if(resto != 0) {
+					posy += 1;
+					resto--;
+				}
+				posy += velocidadeDesembarque;
+			} else if (posx < 700) {
+				if(resto != 0) {
+					posx += 1;
+					resto--;
+				}
+				posx += velocidadeDesembarque;
+			} else if(posy <= 535) {
+				direcao = 0;
+				if(resto != 0) {
+					posy += 1;
+					resto--;
+				}
+				posy += velocidadeDesembarque;
+			}
+			
+		} while (tempo < tempoDesembarque);
+		
+		Animacao.cronometro.setText(String.format("%d", tempo));
+		long I = System.currentTimeMillis();
+		while (System.currentTimeMillis() - I < 500) {
+		}
+		
+		posx = 700;
+		posy = 540;
 	}
 	
 	public void entrarNaFila() {
@@ -174,18 +296,8 @@ public class Passageiro extends Thread {
 			}
 		}
 		
-		while (posx != (70 * cont + 20)) {
-			long I = System.currentTimeMillis();
-			while (System.currentTimeMillis() - I < 50) {
-			}
-			
-			posx -= 10; // tem que ser 5
-			indiceImagem++;
-			
-			if (indiceImagem == 20) {
-				indiceImagem = 0;
-			}
-		}
+		organizaFila(posicao);
+		posicao++;
 	}
 
 	public void pinta(Graphics2D g) {

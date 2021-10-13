@@ -12,6 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import Programa.Aplicacao;
+import Programa.Passageiro;
+
 import javax.swing.JLabel;
 
 
@@ -22,11 +26,8 @@ public class Animacao {
 	public static JTextArea textArea;
 	public static JTextArea cronometro;
 	private JScrollPane scrollPane;
-	private JPanel panel1;
+	public static JPanel panel1;
 
-
-	
-	
 	/**
 	 * Create the application.
 	 */
@@ -71,19 +72,15 @@ public class Animacao {
 		btnNewButton.setBounds(863, 521, 146, 36);
 		frameAnimacao.getContentPane().add(btnNewButton);
 		
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBackground(new Color(0, 204, 153));
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				CriacaoPassageiro window = new CriacaoPassageiro();
 				window.frameCriaPassageiro.setVisible(true);
 			}
 		});
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(new Color(0, 204, 153));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		cronometro = new JTextArea();
