@@ -92,8 +92,6 @@ public class Animacao {
 		tempo.setFont(new Font("Tahoma", Font.BOLD, 13));
 		tempo.setBounds(839, 577, 87, 22);
 		frameAnimacao.getContentPane().add(tempo);
-		
-		
 	}
 }
 
