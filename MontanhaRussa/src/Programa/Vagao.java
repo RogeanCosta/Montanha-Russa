@@ -15,7 +15,6 @@ public class Vagao extends Thread {
 
 	public int tempoDeViagem;
 	public int quantidadeDecadeiras;
-
 	public int velocidade = 1;
 	public int resto;
 	BufferedImage imagem;
@@ -26,6 +25,7 @@ public class Vagao extends Thread {
 	public int direcao = 0;
 	public static String texto;
 	public static int []posCadeiras = {295, 265, 225, 195, 155, 125, 90, 60, 20, -10};
+	public List<Passageiro> tempoDeDesembarque = new ArrayList<Passageiro>(quantidadeDecadeiras);
 	public boolean parou;
 
 	public static void VagaoEspera() {
@@ -48,6 +48,8 @@ public class Vagao extends Thread {
 			percorre(this);
 
 			esperandoDesembarque();
+			
+			Aplicacao.downDesembarque();
 		}
 
 	}
@@ -123,22 +125,11 @@ public class Vagao extends Thread {
 	}
 	
 	public void esperandoEmbarque() {
-		int totalTempoEmbarque = 0;
-		
-		for (int i = 0; i < quantidadeDecadeiras; i++) {
-			totalTempoEmbarque += Aplicacao.identificador.get(i).tempoEmbarque;
-		}
-		
-		long I = System.currentTimeMillis();
-		while ((System.currentTimeMillis() - I) / 1000 <= totalTempoEmbarque) {
-		}
-		
 		texto = "Vag�o esperando embarque.\n";
 		Animacao.textArea.append(texto);
 	}
 	
 	public static void esperandoDesembarque() {
-		
 		texto = "Vag�o esperando desembarque.\n";
 		Animacao.textArea.append(texto);
 	}
