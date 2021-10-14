@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
@@ -27,12 +28,18 @@ public class Passageiro extends Thread {
 	public static int posicao;
 	public static int []posFila = {60, 120, 180, 240, 300, 360, 420, 480, 540, 600};
 	
+	// Testando organização da fila!
+	public static int organizou = 1;
+	public static LinkedList<Passageiro> ordemFila = new LinkedList<Passageiro>();
+
+	
 	@Override
 	public void run() {
 		while(true) {
-			Aplicacao.downFila();
+			// Aplicacao.downFila();
+			System.out.println(posicao);
 			entrarNaFila();
-			Aplicacao.upFila();
+			// Aplicacao.upFila();
 			
 			// Colocar prï¿½ximas duas instruï¿½ï¿½es dentro do embarca!
 			texto = String.format("Passageiro %d estï¿½ esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
@@ -48,6 +55,11 @@ public class Passageiro extends Thread {
 			
 			// Aqui vem o mï¿½todo Embarca()
 			embarca();
+			ordemFila.removeFirst();
+
+			for(int i = 0; i < ordemFila.size(); i++) {
+				organizaFila(i, ordemFila.get(i));
+			}
 			
 			if(Aplicacao.cadeirasOcupadas == Aplicacao.v.quantidadeDecadeiras) {
 				Aplicacao.upLotado();
@@ -81,7 +93,7 @@ public class Passageiro extends Thread {
 	}
 	
 	public void organizaFila(int posicao) {
-		while (posx != (posFila[posicao])) {
+		while (posx >= (posFila[posicao])) {
 			long I = System.currentTimeMillis();
 			while (System.currentTimeMillis() - I < 50) {
 			}
@@ -95,14 +107,33 @@ public class Passageiro extends Thread {
 		}
 	}
 	
+	public void organizaFila(int posicao, Passageiro p) {
+		
+		System.out.println(p);
+		while (p.posx >= (p.posFila[posicao])) {
+			long I = System.currentTimeMillis();
+			while (System.currentTimeMillis() - I < 50) {
+			}
+			
+			p.posx -= 10; // tem que ser 5
+			p.indiceImagem++;
+			
+			if (p.indiceImagem == 20) {
+				p.indiceImagem = 0;
+			}
+		}
+	}
+	
 	// Mï¿½todo com a animaï¿½ï¿½o dos passageiros embarcando
 	public void embarca() {
 		int velocidadeEmbarque;
 		int resto;
 		
-		posicao--;
+//		posicao--;
+
+//		ordemFila.removeFirst();
 		
-		organizaFila(0);
+//		organizaFila(0);
 		direcao = 1;
 		
 		texto = String.format("Passageiro %d estï¿½ embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
@@ -120,10 +151,10 @@ public class Passageiro extends Thread {
 		}
 		
 		if (cont < 8) {
-			velocidadeEmbarque = (int) (125 + vagao.posCadeiras[cont] + vagao.posx) 
+			velocidadeEmbarque = (int) (135 + vagao.posCadeiras[cont] + vagao.posx) 
 					/ (20 * tempoEmbarque);
 			
-			resto = (125 + vagao.posCadeiras[cont] + vagao.posx) % (20 * tempoEmbarque);			
+			resto = (135 + vagao.posCadeiras[cont] + vagao.posx) % (20 * tempoEmbarque);			
 		} else {
 			velocidadeEmbarque = (int) (245 - (vagao.posCadeiras[cont] + vagao.posx)) 
 					/ (20 * tempoEmbarque);
@@ -296,16 +327,16 @@ public class Passageiro extends Thread {
 	}
 	
 	public void entrarNaFila() {
-		int cont = 0;
+//		int cont = 0;
 		
-		for (int i = 0; i < Aplicacao.identificador.size() - 1; i++) {
-			if (Aplicacao.identificador.get(i).status == 0) {
-				cont++;
-			}
-		}
-		
-		organizaFila(cont);
-		posicao++;
+//		for (int i = 0; i < Aplicacao.identificador.size() - 1; i++) {
+//			if (Aplicacao.identificador.get(i).status == 0) {
+//				cont++;
+//			}
+//		}
+		ordemFila.add(this);		
+		organizaFila(ordemFila.size() - 1);
+//		posicao++;
 	}
 
 	public void pinta(Graphics2D g) {

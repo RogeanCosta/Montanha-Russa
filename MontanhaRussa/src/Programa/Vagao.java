@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,7 @@ public class Vagao extends Thread {
 	public static String texto;
 	public static int []posCadeiras = {295, 265, 225, 195, 155, 125, 90, 60, 20, -10};
 	public List<Passageiro> tempoDeDesembarque = new ArrayList<Passageiro>(quantidadeDecadeiras);
+	
 	public boolean parou;
 
 	public static void VagaoEspera() {
@@ -60,6 +62,8 @@ public class Vagao extends Thread {
 		long inicio = System.currentTimeMillis(); 
 		long fim = System.currentTimeMillis(); 
 		int tempo; 
+		int decimal = (2254 - v.posx) % (20 * v.tempoDeViagem);
+	    v.resto = decimal;
 		v.parou = false;
 		
 		do {
