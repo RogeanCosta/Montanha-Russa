@@ -34,11 +34,6 @@ public class Passageiro extends Thread {
 			entrarNaFila();
 			Aplicacao.upFila();
 			
-			while (posicao != 1) {
-				Aplicacao.downFila();
-				entrarNaFila();
-			}
-			
 			// Colocar pr�ximas duas instru��es dentro do embarca!
 			texto = String.format("Passageiro %d est� esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
 			Animacao.textArea.append(texto);
@@ -124,10 +119,17 @@ public class Passageiro extends Thread {
 			}
 		}
 		
-		velocidadeEmbarque = (int) (125 + vagao.posCadeiras[cont] + vagao.posx) 
-				/ (20 * tempoEmbarque);
-		
-		resto = (125 + vagao.posCadeiras[cont] + vagao.posx) % (20 * tempoEmbarque);
+		if (cont < 8) {
+			velocidadeEmbarque = (int) (125 + vagao.posCadeiras[cont] + vagao.posx) 
+					/ (20 * tempoEmbarque);
+			
+			resto = (125 + vagao.posCadeiras[cont] + vagao.posx) % (20 * tempoEmbarque);			
+		} else {
+			velocidadeEmbarque = (int) (245 - (vagao.posCadeiras[cont] + vagao.posx)) 
+					/ (20 * tempoEmbarque);
+			
+			resto = (245 - (vagao.posCadeiras[cont] + vagao.posx)) % (20 * tempoEmbarque);
+		}
 		
 		cadeiraPassageiroInvertido = 9 - cont;
 		cadeiraPassageiro = cont;
@@ -154,13 +156,19 @@ public class Passageiro extends Thread {
 					resto--;
 				}
 				posy -= velocidadeEmbarque;
-			} else if (posx < vagao.posCadeiras[cont] + vagao.posx) {
+			} else if (posx < vagao.posCadeiras[cont] + vagao.posx && cont < 8) {
 				if(resto != 0) {
 					posx += 1;
 					resto--;
 				}
 				posx += velocidadeEmbarque;
-			} else if(posy >= 250) {
+			} else if (posx > vagao.posCadeiras[cont] + vagao.posx && cont > 7) {
+				if(resto != 0) {
+					posx -= 1;
+					resto--;
+				}
+				posx -= velocidadeEmbarque;
+			} else if(posy >= 300) {
 				if(resto != 0) {
 					posy -= 1;
 					resto--;
@@ -296,7 +304,7 @@ public class Passageiro extends Thread {
 			}
 		}
 		
-		organizaFila(posicao);
+		organizaFila(cont);
 		posicao++;
 	}
 
