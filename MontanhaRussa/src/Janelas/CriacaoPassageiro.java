@@ -103,7 +103,8 @@ public class CriacaoPassageiro {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				frameCriaPassageiro.setVisible(false);
-				Passageiro passageiro = new Passageiro();
+				System.out.println((Aplicacao.identificador.size()+1));
+				Passageiro passageiro = new Passageiro((Aplicacao.identificador.size()+1));
 //				passageiro.entrarNaFila(passageiro);
 				passageiro.vagao = Aplicacao.v;
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());

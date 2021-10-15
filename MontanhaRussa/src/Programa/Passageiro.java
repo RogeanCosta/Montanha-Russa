@@ -18,6 +18,7 @@ public class Passageiro extends Thread {
 	public Vagao vagao;
 	public BufferedImage personagemAndando[];
 	public BufferedImage personagemRespirando[];
+	public BufferedImage idImagem;
 	public int indiceImagem = 0;
 	public int status = 0;
 	public int direcao = 0;
@@ -27,6 +28,7 @@ public class Passageiro extends Thread {
 	public int cadeiraPassageiro;
 	public static int posicao;
 	public static int []posFila = {60, 120, 180, 240, 300, 360, 420, 480, 540, 600};
+	public int id;
 	
 	// Testando organização da fila!
 	public static int organizou = 1;
@@ -46,7 +48,9 @@ public class Passageiro extends Thread {
 			Animacao.textArea.append(texto);
 			
 			// Down vagï¿½o
+			System.out.println("Passageiro " + id + " dormiu no vagao (zzzzz)");
 			Aplicacao.downVagao();
+			System.out.println("Passageiro " + id + " acordou e vai embarcar!");
 			
 			// Down mutex
 			Aplicacao.downMutex();
@@ -109,7 +113,7 @@ public class Passageiro extends Thread {
 	
 	public void organizaFila(int posicao, Passageiro p) {
 		
-		System.out.println(p);
+		//System.out.println(p);
 		while (p.posx >= (p.posFila[posicao])) {
 			long I = System.currentTimeMillis();
 			while (System.currentTimeMillis() - I < 50) {
@@ -247,7 +251,7 @@ public class Passageiro extends Thread {
 		} while (vagao.parou == false);
 		
 		
-		// Esperar vagÃ£o parar
+		// Esperar vagÃo parar
 		long I = System.currentTimeMillis();
 		while ((System.currentTimeMillis() - I) / 1000 <= 1) {
 		}
@@ -344,32 +348,55 @@ public class Passageiro extends Thread {
 			if (direcao == 0) {
 				g.drawImage(personagemAndando[indiceImagem], posx, posy, posx + 60, posy + 60, 
 						personagemAndando[indiceImagem].getWidth(), 0, 0, 
-						personagemAndando[indiceImagem].getHeight(), null);				
+						personagemAndando[indiceImagem].getHeight(), null);	
+				g.drawImage(idImagem, posx+20, posy + 5, 
+						posx+20+10, posy + 20, 
+						0, 0, idImagem.getWidth(), idImagem.getHeight(), null);
 			} else if (direcao == 1) {
 				g.drawImage(personagemAndando[indiceImagem], posx, posy, posx + 60, posy + 60, 
 						0, 0, personagemAndando[indiceImagem].getWidth(), 
-						personagemAndando[indiceImagem].getHeight(), null);	
+						personagemAndando[indiceImagem].getHeight(), null);
+				g.drawImage(idImagem, posx+30, posy + 5, 
+						posx+20+20, posy+20, 
+						0, 0, idImagem.getWidth(), idImagem.getHeight(), null);
 			}
 		} else if (status == 1) {
 			if (direcao == 0) {
 				g.drawImage(personagemRespirando[indiceImagem], posx, posy, posx + 60, posy + 60, 
 						personagemRespirando[indiceImagem].getWidth(), 0, 0, 
-						personagemRespirando[indiceImagem].getHeight(), null);				
+						personagemRespirando[indiceImagem].getHeight(), null);	
+				g.drawImage(idImagem, posx+20, posy + 5, 
+						posx+20+10, posy+20, 
+						0, 0, idImagem.getWidth(), idImagem.getHeight(), null);
 			} else if (direcao == 1) {
 				g.drawImage(personagemRespirando[indiceImagem], posx, posy, posx + 60, posy + 60, 
 						0, 0, personagemRespirando[indiceImagem].getWidth(), 
 						personagemRespirando[indiceImagem].getHeight(), null);	
+				g.drawImage(idImagem, posx+30, posy + 5, 
+						posx+20+20, posy+20,
+						0, 0, idImagem.getWidth(), idImagem.getHeight(), null);
 			}
 		}
 
 	}
 	
-	public Passageiro() {
+	public Passageiro(int id) {
 		personagemAndando = new BufferedImage[20];
 		personagemRespirando = new BufferedImage[16];
 		String imagem;
 		
+		this.id = id;
+		System.out.println("ID: " + id);
 		
+		//carrega imagem do id
+		imagem = "imagens/passageiro/(" + id + ").png";
+		try {
+			idImagem = ImageIO.read(new File(imagem));
+		} catch (IOException e1) {
+			System.out.println("Não conseguiu carregar a imagem");
+		}
+		
+		//carrega imagens do passageiro andando
 		for (int i = 0; i < 20; i++) {
 			try {				
 				imagem = "imagens/passageiro/Walk ("+ (i+1)+").png";
@@ -380,6 +407,7 @@ public class Passageiro extends Thread {
 			}			
 		}
 		
+		//carrega imagens do passageiro respirando
 		for (int i = 0; i < 16; i++) {
 			try {
 				imagem = "imagens/passageiro/Idle ("+ (i+1)+").png";

@@ -77,13 +77,13 @@ public class Vagao extends Thread {
 
 //			System.out.println(v.velocidade + " " + v.resto + " " + v.posx);
 			
-			if (v.posx < 777 && v.direcao == 0) { // Enquanto n�o saiu da tela vai para frente
+			if (v.posx < 777 && v.direcao == 0) { // Enquanto nao saiu da tela vai para frente
 				v.posx += v.velocidade;
 				if(v.resto != 0) {
 					v.posx += 1;
 					v.resto--;
 				}
-			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto n�o n�o saiu da tela anda para esquerda
+			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto nao saiu da tela (pela esquerda) anda continua andando
 				v.posx -= v.velocidade;
 				if(v.resto != 0) {
 					v.posx -= 1;
@@ -91,8 +91,8 @@ public class Vagao extends Thread {
 				}
 			} else if (v.posx >= 777) { // Assim que sair totalmente da tela altera a direcao
 				v.direcao = 1;
-			} else { // Assim que sai da tela pela esquerda altera a direcao
-				v.direcao = 0;
+			} else { 					// Assim que sai da tela pela esquerda altera a direcao
+				v.direcao = 0;			// e altera status para true para poder parar o vagao 
 				v.status = true;
 			}
 
