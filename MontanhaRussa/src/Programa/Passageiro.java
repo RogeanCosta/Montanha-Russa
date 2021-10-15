@@ -43,7 +43,7 @@ public class Passageiro extends Thread {
 			Aplicacao.upFila();
 			
 			// Colocar prï¿½ximas duas instruï¿½ï¿½es dentro do embarca!
-			texto = String.format("Passageiro %d estï¿½ esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
+			texto = String.format("Passageiro %d está esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
 			Animacao.textArea.append(texto);
 			
 			// Down vagão
