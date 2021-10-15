@@ -38,26 +38,22 @@ public class Passageiro extends Thread {
 	@Override
 	public void run() {
 		while(true) {
-			// Aplicacao.downFila();
-			System.out.println(posicao);
+			Aplicacao.downFila();
 			entrarNaFila();
-			// Aplicacao.upFila();
+			Aplicacao.upFila();
 			
 			// Colocar prï¿½ximas duas instruï¿½ï¿½es dentro do embarca!
 			texto = String.format("Passageiro %d estï¿½ esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
 			Animacao.textArea.append(texto);
 			
-			// Down vagï¿½o
-			System.out.println("Passageiro " + id + " dormiu no vagao (zzzzz)");
+			// Down vagão
 			Aplicacao.downVagao();
-			System.out.println("Passageiro " + id + " acordou e vai embarcar!");
 			
 			// Down mutex
 			Aplicacao.downMutex();
 			
 			Aplicacao.cadeirasOcupadas++;
 			
-			// Aqui vem o mï¿½todo Embarca()
 			embarca();
 			ordemFila.removeFirst();
 
@@ -73,10 +69,9 @@ public class Passageiro extends Thread {
 		
 			Aplicacao.upMutex();
 			
-			// Preparaï¿½ï¿½o para viagem
+			// Preparação para viagem
 			Aplicacao.downPreparativos();
 			
-			// Aqui vem o mï¿½todo viajando
 			viajando();
 		
 			// Desembarque vai acontecer
@@ -102,7 +97,7 @@ public class Passageiro extends Thread {
 			while (System.currentTimeMillis() - I < 50) {
 			}
 			
-			posx -= 10; // tem que ser 5
+			posx -= 10;
 			indiceImagem++;
 			
 			if (indiceImagem == 20) {
@@ -113,13 +108,12 @@ public class Passageiro extends Thread {
 	
 	public void organizaFila(int posicao, Passageiro p) {
 		
-		//System.out.println(p);
 		while (p.posx >= (p.posFila[posicao])) {
 			long I = System.currentTimeMillis();
 			while (System.currentTimeMillis() - I < 50) {
 			}
 			
-			p.posx -= 10; // tem que ser 5
+			p.posx -= 10;
 			p.indiceImagem++;
 			
 			if (p.indiceImagem == 20) {
@@ -128,19 +122,14 @@ public class Passageiro extends Thread {
 		}
 	}
 	
-	// Mï¿½todo com a animaï¿½ï¿½o dos passageiros embarcando
+	// Método com a animação dos passageiros embarcando
 	public void embarca() {
 		int velocidadeEmbarque;
 		int resto;
-		
-//		posicao--;
-
-//		ordemFila.removeFirst();
-		
-//		organizaFila(0);
+				
 		direcao = 1;
 		
-		texto = String.format("Passageiro %d estï¿½ embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
+		texto = String.format("Passageiro %d está embarcando.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
 		
 		long inicio = System.currentTimeMillis(); 
@@ -224,9 +213,9 @@ public class Passageiro extends Thread {
 	
 	}
 	
-	// Mï¿½todo com a animaï¿½ï¿½o do passageiros se divertindo
+	// Método com a animação do passageiros se divertindo
 	public void viajando() {
-		texto = String.format("Passageiro %d estï¿½ apreciando paisagem.\n", (Aplicacao.identificador.indexOf(this)+1));
+		texto = String.format("Passageiro %d está apreciando paisagem.\n", (Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
 		
 		do {
@@ -234,10 +223,10 @@ public class Passageiro extends Thread {
 			while ((System.currentTimeMillis() - I) < 50) {
 			}
 			
-			if (vagao.direcao == 1) { // Enquanto nï¿½o nï¿½o saiu da tela anda para esquerda
+			if (vagao.direcao == 1) { // Enquanto não saiu da tela anda para esquerda
 				posx = vagao.posx + vagao.posCadeiras[cadeiraPassageiroInvertido];
 				direcao = 0;
-			} else if (vagao.direcao == 0) { // Enquanto nï¿½o saiu da tela vai para frente
+			} else if (vagao.direcao == 0) { // Enquanto não saiu da tela vai para frente
 				posx  = vagao.posx + vagao.posCadeiras[cadeiraPassageiro];
 				direcao = 1;
 			}
@@ -247,23 +236,23 @@ public class Passageiro extends Thread {
 			if (indiceImagem == 16) {
 				indiceImagem = 0;
 			}
-			System.out.print(""); // importante!!!! NÃƒO RETIRAR NUNCA!
+			System.out.print(""); // importante!!!! NÃO RETIRAR NUNCA!
 		} while (vagao.parou == false);
 		
 		
-		// Esperar vagÃo parar
+		// Esperar vagão parar
 		long I = System.currentTimeMillis();
 		while ((System.currentTimeMillis() - I) / 1000 <= 1) {
 		}
 	}
 	
-	// Mï¿½todo com a animaï¿½ï¿½o dos passageiros desembarcando
+	// Método com a animação dos passageiros desembarcando
 	public void desambarcando() {
 		int tempoAguardo = 0;
 		int velocidadeDesembarque;
 		int resto = 0;
 		
-		texto = String.format("Passageiro %d estï¿½ desembarcando.\n", 
+		texto = String.format("Passageiro %d está desembarcando.\n", 
 				(Aplicacao.identificador.indexOf(this)+1));
 		Animacao.textArea.append(texto);
 		
@@ -331,16 +320,8 @@ public class Passageiro extends Thread {
 	}
 	
 	public void entrarNaFila() {
-//		int cont = 0;
-		
-//		for (int i = 0; i < Aplicacao.identificador.size() - 1; i++) {
-//			if (Aplicacao.identificador.get(i).status == 0) {
-//				cont++;
-//			}
-//		}
 		ordemFila.add(this);		
 		organizaFila(ordemFila.size() - 1);
-//		posicao++;
 	}
 
 	public void pinta(Graphics2D g) {
@@ -402,7 +383,7 @@ public class Passageiro extends Thread {
 				imagem = "imagens/passageiro/Walk ("+ (i+1)+").png";
 				personagemAndando[i] = ImageIO.read(new File(imagem));
 			} catch (IOException e) {
-				System.out.println("Nï¿½o foi possï¿½vel carregar passageiro andando!!");
+				System.out.println("Não foi possível carregar passageiro andando!!");
 				e.printStackTrace();
 			}			
 		}
@@ -413,7 +394,7 @@ public class Passageiro extends Thread {
 				imagem = "imagens/passageiro/Idle ("+ (i+1)+").png";
 				personagemRespirando[i] = ImageIO.read(new File(imagem));
 			} catch (IOException e) {
-				System.out.println("Nï¿½o foi possï¿½vel carregar passageiro respirando!!");
+				System.out.println("Não foi possível carregar passageiro respirando!!");
 				e.printStackTrace();
 			}
 		}
