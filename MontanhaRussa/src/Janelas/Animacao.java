@@ -28,28 +28,27 @@ public class Animacao {
 	private JScrollPane scrollPane;
 	public static JPanel panel1;
 
-	/**
-	 * Create the application.
-	 */
+	// Cria o frame da criação de passageiro.
 	public Animacao() {
-		initialize();
+		inicializar();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	// Inicializa o conteúdo do frame.
+	private void inicializar() {
 		
 		frameAnimacao = new JFrame();	
-		frameAnimacao.getContentPane().setBackground(new Color(255, 153, 204));
+		frameAnimacao.getContentPane().setBackground(new Color(222, 184, 135));
 		frameAnimacao.setTitle("Montanha Russa");
-		//frameAnimacao.setResizable(false);
+		frameAnimacao.setResizable(false);
 		frameAnimacao.setSize(1110, 649);
 		frameAnimacao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameAnimacao.setLocationRelativeTo(null);
 		frameAnimacao.getContentPane().setLayout(null);
 		
 		textArea = new JTextArea();
+		textArea.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		textArea.setForeground(Color.WHITE);
+		textArea.setBackground(Color.BLACK);
 		textArea.setBounds(777, 0, 317, 499);
 		textArea.setEditable(false);
 		frameAnimacao.getContentPane().add(textArea);
@@ -84,13 +83,14 @@ public class Animacao {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		cronometro = new JTextArea();
-		cronometro.setBounds(946, 577, 94, 22);
+		cronometro.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		cronometro.setBounds(965, 568, 32, 22);
 		cronometro.setEditable(false);
 		frameAnimacao.getContentPane().add(cronometro);
 		
-		JLabel tempo = new JLabel("Cron\u00F4metro:");
+		JLabel tempo = new JLabel("Cronômetro:");
 		tempo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		tempo.setBounds(839, 577, 87, 22);
+		tempo.setBounds(873, 568, 87, 22);
 		frameAnimacao.getContentPane().add(tempo);
 	}
 }

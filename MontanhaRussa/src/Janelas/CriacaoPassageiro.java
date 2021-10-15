@@ -1,23 +1,17 @@
 package Janelas;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JTextField;
 
 import Programa.Aplicacao;
 import Programa.Passageiro;
-
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
 
 public class CriacaoPassageiro {
 
@@ -26,43 +20,38 @@ public class CriacaoPassageiro {
 	private JTextField tempoDesembarque;
 	private JButton botao = new JButton("Criar Passageiro");
 
-	/**
-	 * Create the application.
-	 */
+	
+	// Cria o frame da criação de passageiro.
 	public CriacaoPassageiro() {
-		initialize();
+		inicializa();
 	}
 
-	
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	// Inicializa o conteúdo do frame.
+	private void inicializa() {
 		frameCriaPassageiro = new JFrame();
 		frameCriaPassageiro.setResizable(false);
-		frameCriaPassageiro.setTitle("Cria\u00E7\u00E3o de passageiro");
+		frameCriaPassageiro.setTitle("Criação de passageiro");
 		frameCriaPassageiro.setBounds(100, 100, 340, 146);
 		frameCriaPassageiro.getContentPane().setLayout(null);
 		frameCriaPassageiro.setLocationRelativeTo(null);
 		
-		JLabel lblNewLabel = new JLabel("Tempo de embarque: ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 11, 176, 21);
-		frameCriaPassageiro.getContentPane().add(lblNewLabel);
+		JLabel labelEmbarque = new JLabel("Tempo de embarque: ");
+		labelEmbarque.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelEmbarque.setBounds(10, 11, 176, 21);
+		frameCriaPassageiro.getContentPane().add(labelEmbarque);
 		
-		JLabel lblTempoDeDesembarque = new JLabel("Tempo de desembarque: ");
-		lblTempoDeDesembarque.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTempoDeDesembarque.setBounds(10, 43, 185, 21);
-		frameCriaPassageiro.getContentPane().add(lblTempoDeDesembarque);
+		JLabel labelDesembarque = new JLabel("Tempo de desembarque: ");
+		labelDesembarque.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelDesembarque.setBounds(10, 43, 185, 21);
+		frameCriaPassageiro.getContentPane().add(labelDesembarque);
 		
-		/**
-		Parte de texto de Embarque  
-		**/
+		// Parte de texto de Embarque  
 		tempoEmbarque = new JTextField();
 		tempoEmbarque.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
+				// passa para a próxima opção com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					tempoDesembarque.requestFocus();
 				}
 			}
@@ -71,9 +60,7 @@ public class CriacaoPassageiro {
 		frameCriaPassageiro.getContentPane().add(tempoEmbarque);
 		tempoEmbarque.setColumns(10);
 		
-		/**
-		Parte de texto de Desembarque  
-		**/
+		// Parte de texto de Desembarque  
 		tempoDesembarque = new JTextField();
 		tempoDesembarque.setBounds(205, 45, 86, 20);
 		frameCriaPassageiro.getContentPane().add(tempoDesembarque);
@@ -81,20 +68,19 @@ public class CriacaoPassageiro {
 		tempoDesembarque.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
+				// passa para a próxima opção com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					botao.requestFocus();
 				}
 			}
 		});
 		
-		
-		/**
-		Botï¿½o e configuraï¿½ï¿½es
-		 * */
+		// Botão e suas configurações
 		botao.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // faz a aï¿½ï¿½o do click com enter
+				// faz a ação do click com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					botao.doClick();
 				}
 			}
@@ -103,13 +89,13 @@ public class CriacaoPassageiro {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				frameCriaPassageiro.setVisible(false);
-				Passageiro passageiro = new Passageiro();
-//				passageiro.entrarNaFila(passageiro);
+				Passageiro passageiro = new Passageiro((Aplicacao.identificador.size()+1));
+
 				passageiro.vagao = Aplicacao.v;
 				passageiro.tempoEmbarque = Integer.parseInt(tempoEmbarque.getText());
 				passageiro.tempoDesembarque = Integer.parseInt(tempoDesembarque.getText());
 				Aplicacao.identificador.add(passageiro);
-				String pronto = "Passageiro " + (Aplicacao.identificador.indexOf(passageiro)+1) + " chegou na fila da montanha russa.\n";
+				String pronto = "Passageiro " + (Aplicacao.identificador.indexOf(passageiro)+1) + " chegou na fila.\n";
 				Animacao.textArea.append(pronto);
 				frameCriaPassageiro.dispose();
 				passageiro.start();

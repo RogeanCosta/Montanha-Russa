@@ -26,6 +26,7 @@ public class Vagao extends Thread {
 	public static String texto;
 	public static int []posCadeiras = {295, 265, 225, 195, 155, 125, 90, 60, 20, -10};
 	public List<Passageiro> tempoDeDesembarque = new ArrayList<Passageiro>(quantidadeDecadeiras);
+	
 	public boolean parou;
 
 	public static void VagaoEspera() {
@@ -42,7 +43,7 @@ public class Vagao extends Thread {
 
 			Aplicacao.upPreparativos(quantidadeDecadeiras);
 
-			texto = "Vagï¿½o viajando.\n";
+			texto = "Vagão viajando.\n";
 			Animacao.textArea.append(texto);
 
 			percorre(this);
@@ -54,12 +55,14 @@ public class Vagao extends Thread {
 
 	}
 
-	// Mï¿½todo de Animaï¿½ï¿½o para percorrer a Montanha
+	// Método de Animação para percorrer a Montanha
 	public static void percorre(Vagao v) {
 		
 		long inicio = System.currentTimeMillis(); 
 		long fim = System.currentTimeMillis(); 
 		int tempo; 
+		int decimal = (2254 - v.posx) % (20 * v.tempoDeViagem);
+	    v.resto = decimal;
 		v.parou = false;
 		
 		do {
@@ -71,15 +74,14 @@ public class Vagao extends Thread {
 			while (System.currentTimeMillis() - I < 50) {
 			}
 
-//			System.out.println(v.velocidade + " " + v.resto + " " + v.posx);
 			
-			if (v.posx < 777 && v.direcao == 0) { // Enquanto nï¿½o saiu da tela vai para frente
+			if (v.posx < 777 && v.direcao == 0) { // Enquanto nao saiu da tela vai para frente
 				v.posx += v.velocidade;
 				if(v.resto != 0) {
 					v.posx += 1;
 					v.resto--;
 				}
-			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto nï¿½o nï¿½o saiu da tela anda para esquerda
+			} else if (v.direcao == 1 && v.posx > -350) { // Enquanto nao saiu da tela (pela esquerda) anda continua andando
 				v.posx -= v.velocidade;
 				if(v.resto != 0) {
 					v.posx -= 1;
@@ -87,8 +89,8 @@ public class Vagao extends Thread {
 				}
 			} else if (v.posx >= 777) { // Assim que sair totalmente da tela altera a direcao
 				v.direcao = 1;
-			} else { // Assim que sai da tela pela esquerda altera a direcao
-				v.direcao = 0;
+			} else { 					// Assim que sai da tela pela esquerda altera a direcao
+				v.direcao = 0;			// e altera status para true para poder parar o vagao 
 				v.status = true;
 			}
 
@@ -116,25 +118,25 @@ public class Vagao extends Thread {
 		try {
 			imagem = ImageIO.read(new File("imagens/carrinho.png"));
 		} catch (IOException e) {
-			System.out.println("Nï¿½o foi possï¿½vel caregar o plado de fundo!!");
+			System.out.println("Não foi possível carregar o plano de fundo!!");
 			e.printStackTrace();
 		}
 
 		try {
 			imagemInvertida = ImageIO.read(new File("imagens/carrinhoInvertido.png"));
 		} catch (IOException e) {
-			System.out.println("Nï¿½o foi possï¿½vel caregar o plado de fundo!!");
+			System.out.println("Não foi possível carregar o plano de fundo!!");
 			e.printStackTrace();
 		}
 	}
 	
 	public void esperandoEmbarque() {
-		texto = "Vagï¿½o esperando embarque.\n";
+		texto = "Vagão esperando embarque.\n";
 		Animacao.textArea.append(texto);
 	}
 	
 	public static void esperandoDesembarque() {
-		texto = "Vagï¿½o esperando desembarque.\n";
+		texto = "Vagão esperando desembarque.\n";
 		Animacao.textArea.append(texto);
 	}
 
