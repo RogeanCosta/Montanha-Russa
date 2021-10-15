@@ -17,6 +17,11 @@ public class Aplicacao {
 	public static List<Passageiro> identificador = new ArrayList<Passageiro>();
 	public static Vagao v;
 	
+	public static void tempoDelay(int tempo) {
+		long I = System.currentTimeMillis();
+		while (System.currentTimeMillis() - I < tempo) {
+		}
+	}
 	
 	public static void downVagao() {
 		try {

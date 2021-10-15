@@ -8,10 +8,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
 
 import Programa.Vagao;
 
@@ -20,53 +17,45 @@ public class CriacaoVagao {
 	public JFrame frmCriaoDeVago;
 	private JTextField numeroDeCadeiras;
 	private JTextField tempoDeViagem;
-	JButton botao = new JButton("Criar vag\u00E3o");
+	JButton botao = new JButton("Criar vagão");
 
-	/**
-	 * Create the application.
-	 */
+
+	// Cria o frame da criação do vagão.
 	public CriacaoVagao(Vagao vagao) {
-		initialize(vagao);
+		inicializa(vagao);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize(Vagao vagao) {
-		/**
-		Cria o frame e configura
-		**/
+	// Inicializa o conteúdo do frame.
+	private void inicializa(Vagao vagao) {
+		
+		// Cria o frame e configura
 		frmCriaoDeVago = new JFrame();
 		frmCriaoDeVago.setResizable(false);
 		frmCriaoDeVago.setBackground(Color.LIGHT_GRAY);
-		frmCriaoDeVago.setTitle("Cria\u00E7\u00E3o de Vag\u00E3o");
+		frmCriaoDeVago.setTitle("Criação de Vagão");
 		frmCriaoDeVago.setBounds(100, 100, 316, 133);
 		frmCriaoDeVago.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCriaoDeVago.getContentPane().setLayout(null);
 		frmCriaoDeVago.setLocationRelativeTo(null);
 		
+		// Cria os textos da janela
+		JLabel labelCadeiras = new JLabel("Número de cadeiras:");
+		labelCadeiras.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelCadeiras.setBounds(10, 11, 152, 14);
+		frmCriaoDeVago.getContentPane().add(labelCadeiras);
 		
-		/**
-		Cria os textos da janela
-		**/
-		JLabel lblNewLabel = new JLabel("N\u00FAmero de cadeiras:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 11, 152, 14);
-		frmCriaoDeVago.getContentPane().add(lblNewLabel);
+		JLabel labelTempoDeViagem = new JLabel("Tempo de viagem: ");
+		labelTempoDeViagem.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelTempoDeViagem.setBounds(10, 36, 152, 14);
+		frmCriaoDeVago.getContentPane().add(labelTempoDeViagem);
 		
-		JLabel lblTempoDeViagem = new JLabel("Tempo de viagem: ");
-		lblTempoDeViagem.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTempoDeViagem.setBounds(10, 36, 152, 14);
-		frmCriaoDeVago.getContentPane().add(lblTempoDeViagem);
-		
-		/**
-		Criaï¿½ï¿½o e configuraï¿½ï¿½o das caixas de texto
-		**/
+		// Criação e configuração das caixas de texto
 		numeroDeCadeiras = new JTextField();
 		numeroDeCadeiras.addKeyListener(new KeyAdapter() {
 			@Override
+			// passa para a próxima opção com enter
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      
 					tempoDeViagem.requestFocus();
 				}
 			}
@@ -78,8 +67,9 @@ public class CriacaoVagao {
 		tempoDeViagem = new JTextField();
 		tempoDeViagem.addKeyListener(new KeyAdapter() {
 			@Override
+			// passa para a próxima opção com enter
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {      // passa para a prï¿½xima opï¿½ï¿½o com enter
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					botao.requestFocus();
 				}
 			}
@@ -88,18 +78,16 @@ public class CriacaoVagao {
 		frmCriaoDeVago.getContentPane().add(tempoDeViagem);
 		tempoDeViagem.setColumns(10);
 		
-		/**
-		Criaï¿½ï¿½o e configuraï¿½ï¿½o do botï¿½o
-		**/ 
+		// Criação do botão e suas configurações
 		botao.setBackground(new Color(0, 204, 153));
 		botao.setForeground(Color.WHITE);
 		botao.setFont(new Font("Tahoma", Font.BOLD, 14));
 		botao.setBounds(10, 61, 129, 23);
-		//javax.swing.BorderFactory.createEtchedBorder()
 		frmCriaoDeVago.getContentPane().add(botao);
 		botao.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {				// aciona o botao com o enter
+			// aciona o botao com o enter
+			public void keyPressed(KeyEvent e) {				
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {	
 					botao.doClick();
 				}
@@ -112,6 +100,8 @@ public class CriacaoVagao {
 		       vagao.quantidadeDecadeiras = Integer.parseInt(numeroDeCadeiras.getText());
 		       vagao.tempoDeViagem = Integer.parseInt(tempoDeViagem.getText());
 		       
+		       /* 2254 - vagao.posx é a distancia percorrida pelo vagão
+		          20 * tempoDeViagem já é o tempo convertido para segundos*/
 		       vagao.velocidade =  (int) (2254 - vagao.posx) / (20 * vagao.tempoDeViagem);
 		       
 		       decimal = (2254 - vagao.posx) % (20 * vagao.tempoDeViagem);
@@ -122,7 +112,7 @@ public class CriacaoVagao {
 		       Animacao telaPrincipal = new Animacao();		       
 		       telaPrincipal.frameAnimacao.setVisible(true);
 		       vagao.start();
-		       String pronto = "Vagï¿½o foi criado com " + vagao.quantidadeDecadeiras + " cadeiras.\n";
+		       String pronto = "Vagão foi criado com " + vagao.quantidadeDecadeiras + " cadeiras.\n";
 		       Animacao.textArea.append(pronto);
 		       
 		    }

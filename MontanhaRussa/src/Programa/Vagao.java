@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -44,7 +43,7 @@ public class Vagao extends Thread {
 
 			Aplicacao.upPreparativos(quantidadeDecadeiras);
 
-			texto = "Vagï¿½o viajando.\n";
+			texto = "Vagão viajando.\n";
 			Animacao.textArea.append(texto);
 
 			percorre(this);
@@ -56,7 +55,7 @@ public class Vagao extends Thread {
 
 	}
 
-	// Mï¿½todo de Animaï¿½ï¿½o para percorrer a Montanha
+	// Método de Animação para percorrer a Montanha
 	public static void percorre(Vagao v) {
 		
 		long inicio = System.currentTimeMillis(); 
@@ -75,7 +74,6 @@ public class Vagao extends Thread {
 			while (System.currentTimeMillis() - I < 50) {
 			}
 
-//			System.out.println(v.velocidade + " " + v.resto + " " + v.posx);
 			
 			if (v.posx < 777 && v.direcao == 0) { // Enquanto nao saiu da tela vai para frente
 				v.posx += v.velocidade;
@@ -120,25 +118,25 @@ public class Vagao extends Thread {
 		try {
 			imagem = ImageIO.read(new File("imagens/carrinho.png"));
 		} catch (IOException e) {
-			System.out.println("Nï¿½o foi possï¿½vel caregar o plado de fundo!!");
+			System.out.println("Não foi possível carregar o plano de fundo!!");
 			e.printStackTrace();
 		}
 
 		try {
 			imagemInvertida = ImageIO.read(new File("imagens/carrinhoInvertido.png"));
 		} catch (IOException e) {
-			System.out.println("Nï¿½o foi possï¿½vel caregar o plado de fundo!!");
+			System.out.println("Não foi possível carregar o plano de fundo!!");
 			e.printStackTrace();
 		}
 	}
 	
 	public void esperandoEmbarque() {
-		texto = "Vagï¿½o esperando embarque.\n";
+		texto = "Vagão esperando embarque.\n";
 		Animacao.textArea.append(texto);
 	}
 	
 	public static void esperandoDesembarque() {
-		texto = "Vagï¿½o esperando desembarque.\n";
+		texto = "Vagão esperando desembarque.\n";
 		Animacao.textArea.append(texto);
 	}
 
