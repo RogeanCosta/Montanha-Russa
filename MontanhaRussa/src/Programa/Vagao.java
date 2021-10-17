@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -13,25 +11,32 @@ import Janelas.Animacao;
 
 public class Vagao extends Thread {
 
+	// Atributos Característicos do Vagão
 	public int tempoDeViagem;
 	public int quantidadeDecadeiras;
-	public int velocidade = 1;
+	
+	// Referente a movimentação por tempo do Vagão
+	public int velocidade;
 	public int resto;
+	
+	// Referente a imagens
 	BufferedImage imagem;
 	BufferedImage imagemInvertida;
+	
+	// Valores iniciais de posx, posy refere-se a posição em que "Nasce"
 	public int posx = 0;
 	public int posy = 385;
+	
+	// Referente a movimentação do vagão  
 	public boolean status = false;
 	public int direcao = 0;
-	public static String texto;
-	public static int []posCadeiras = {295, 265, 225, 195, 155, 125, 90, 60, 20, -10};
-	public List<Passageiro> tempoDeDesembarque = new ArrayList<Passageiro>(quantidadeDecadeiras);
-	
 	public boolean parou;
-
-	public static void VagaoEspera() {
-		Aplicacao.downLotado();
-	}
+	
+	public static String texto;
+	
+	// Referente a posição das cadeiras
+	public static int []posCadeiras = {295, 265, 225, 195, 155, 125, 90, 60, 20, -10};
+	
 
 	@Override
 	public void run() {
@@ -61,8 +66,12 @@ public class Vagao extends Thread {
 		long inicio = System.currentTimeMillis(); 
 		long fim = System.currentTimeMillis(); 
 		int tempo; 
-		int decimal = (2254 - v.posx) % (20 * v.tempoDeViagem);
-	    v.resto = decimal;
+		
+		// resto dá um boost no vagão adicional pela parte decimal
+		// perdida no cálculo da velocidade
+		v.resto = (2254 - v.posx) % (20 * v.tempoDeViagem);
+		
+		// false = Não parou
 		v.parou = false;
 		
 		do {
@@ -70,11 +79,8 @@ public class Vagao extends Thread {
 			Animacao.cronometro.setText(String.format("%d", tempo)); 			
 			
 			// Temporizador
-			long I = System.currentTimeMillis();
-			while (System.currentTimeMillis() - I < 50) {
-			}
+			Aplicacao.tempoDelay(50);
 
-			
 			if (v.posx < 777 && v.direcao == 0) { // Enquanto nao saiu da tela vai para frente
 				v.posx += v.velocidade;
 				if(v.resto != 0) {
@@ -113,6 +119,7 @@ public class Vagao extends Thread {
 
 	}
 
+	// Logo na construção do vagão, as imagens são carregadas!
 	public Vagao() {
 
 		try {

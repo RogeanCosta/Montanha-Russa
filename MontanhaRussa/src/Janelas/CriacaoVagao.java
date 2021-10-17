@@ -14,11 +14,11 @@ import Programa.Vagao;
 
 public class CriacaoVagao {
 
+	// Componentes da Tela
 	public JFrame frmCriaoDeVago;
 	private JTextField numeroDeCadeiras;
 	private JTextField tempoDeViagem;
 	JButton botao = new JButton("Criar vagão");
-
 
 	// Cria o frame da criação do vagão.
 	public CriacaoVagao(Vagao vagao) {
@@ -95,7 +95,6 @@ public class CriacaoVagao {
 		});
 		botao.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		       int decimal;
 		    	
 		       vagao.quantidadeDecadeiras = Integer.parseInt(numeroDeCadeiras.getText());
 		       vagao.tempoDeViagem = Integer.parseInt(tempoDeViagem.getText());
@@ -103,9 +102,7 @@ public class CriacaoVagao {
 		       /* 2254 - vagao.posx é a distancia percorrida pelo vagão
 		          20 * tempoDeViagem já é o tempo convertido para segundos*/
 		       vagao.velocidade =  (int) (2254 - vagao.posx) / (20 * vagao.tempoDeViagem);
-		       
-		       decimal = (2254 - vagao.posx) % (20 * vagao.tempoDeViagem);
-		       vagao.resto = decimal;
+		       vagao.resto = (2254 - vagao.posx) % (20 * vagao.tempoDeViagem);
 		       
 		       frmCriaoDeVago.setVisible(false);
 		       frmCriaoDeVago.dispose();

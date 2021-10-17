@@ -12,20 +12,36 @@ import Janelas.Animacao;
 
 public class Passageiro extends Thread {
 
+	// Atributos característicos do passageiro
 	public int tempoEmbarque;
 	public int tempoDesembarque;
+	
+	// Atributo que vai armazenar conteúdo a ser impresso no log
 	public String texto;
+	
+	// Vagão que está nos trilhos
 	public Vagao vagao;
+
+	// Referente ao conjunto de imagens que conferem a movimentação
 	public BufferedImage personagemAndando[];
 	public BufferedImage personagemRespirando[];
 	public BufferedImage idImagem;
+
+	// Referente a movimentação
 	public int indiceImagem = 0;
 	public int status = 0;
 	public int direcao = 0;
+	
+	// valores iniciais de posx e posy refere-se a posição aonde o passageiro "Nasce"
+	// Também utilizados para animação
 	public int posx = 760;
 	public int posy = 540;
+	
+	// utilizados para pegar os índices do vetor referente a posição da cadeira
 	public int cadeiraPassageiroInvertido;
 	public int cadeiraPassageiro;
+	
+	// Array com cada uma das posições da fila e um Array para organizar e atualizar a fila
 	public static int []posFila = {60, 120, 180, 240, 300, 360, 420, 480, 540, 600};
 	public static LinkedList<Passageiro> ordemFila = new LinkedList<Passageiro>();
 
@@ -37,7 +53,6 @@ public class Passageiro extends Thread {
 			entrarNaFila();
 			Aplicacao.upFila();
 			
-			// Colocar próximas duas instruções dentro do embarca!
 			texto = String.format("Passageiro %d está esperando na fila.\n", (Aplicacao.identificador.indexOf(this)+1));
 			Animacao.textArea.append(texto);
 			
@@ -260,7 +275,6 @@ public class Passageiro extends Thread {
 		
 		status = 0;
 		indiceImagem = 0;
-		
 		
 		long inicio = System.currentTimeMillis();
 		int tempo = (int) (System.currentTimeMillis() - inicio) / 1000;

@@ -15,6 +15,7 @@ import Programa.Passageiro;
 
 public class CriacaoPassageiro {
 
+	// Componentes da tela
 	public JFrame frameCriaPassageiro;
 	private JTextField tempoEmbarque;
 	private JTextField tempoDesembarque;
