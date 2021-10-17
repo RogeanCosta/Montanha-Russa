@@ -7,16 +7,24 @@ import Janelas.CriacaoVagao;
 
 public class Aplicacao {
 
+	// Semáforos
 	public static Semaphore preparativos = new Semaphore(0);
 	public static Semaphore mutex = new Semaphore(1, true);
 	public static Semaphore fila = new Semaphore(1, true);
 	public static Semaphore vagao = new Semaphore(1, true);
 	public static Semaphore lotado = new Semaphore(0);
 	public static Semaphore desembarque = new Semaphore(0);
+	
 	public static int cadeirasOcupadas = 0;
+	
+	// Cada passageiro vai possuir um índice para auxílio a identifica-lo
 	public static List<Passageiro> identificador = new ArrayList<Passageiro>();
+	
+	// Vagão criado para a execução atual
 	public static Vagao v;
 	
+	
+	// Referente a loop de tempo
 	public static void tempoDelay(int tempo) {
 		long I = System.currentTimeMillis();
 		while (System.currentTimeMillis() - I < tempo) {
@@ -67,16 +75,8 @@ public class Aplicacao {
 		}
 	}
 	
-	public static void upPreparativos() {
-		preparativos.release();
-	}
-	
 	public static void upPreparativos(int cadeiras) {
 		preparativos.release(cadeiras);
-	}
-	
-	public static void upDesembarque() {
-		desembarque.release();
 	}
 	
 	public static void downDesembarque() {
@@ -85,6 +85,10 @@ public class Aplicacao {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void upDesembarque() {
+		desembarque.release();
 	}
 	
 	public static void downFila( ) {
@@ -102,16 +106,13 @@ public class Aplicacao {
 	public static void main(String[] args) {
 		
 		v = new Vagao();
-		
-		
+			
 		CriacaoVagao window = new CriacaoVagao(v);
 		window.frmCriaoDeVago.setVisible(true);
 		
 		
-		
+		// while(true) para manter o main e a aplicação em execução!
 		while(true) {
-			//System.out.println("Numero de passageiros: " + identificador.size());
-			
 		}
 		
 		
