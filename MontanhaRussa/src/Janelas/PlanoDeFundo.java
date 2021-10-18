@@ -2,7 +2,6 @@ package Janelas;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,7 +15,6 @@ public class PlanoDeFundo {
 	public PlanoDeFundo() {
 		
 		try {
-//			imagem = ImageIO.read(new File("imagens/fundo.png"));
 			imagem = ImageIO.read(getClass().getResource("/imagens/fundo.png"));
 		} catch (IOException e) {
 			System.out.println("Não foi possível caregar o plado de fundo!!");

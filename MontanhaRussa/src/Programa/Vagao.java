@@ -2,7 +2,6 @@ package Programa;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -123,7 +122,6 @@ public class Vagao extends Thread {
 	public Vagao() {
 
 		try {
-//			ImageIO.read(getClass().getResource("/imagens/tabuleiro.png")); 
 			imagem = ImageIO.read(getClass().getResource("/imagens/carrinho.png"));
 		} catch (IOException e) {
 			System.out.println("Não foi possível carregar o carrinho!!");
