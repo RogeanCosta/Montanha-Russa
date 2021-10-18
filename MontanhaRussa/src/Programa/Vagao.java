@@ -123,16 +123,18 @@ public class Vagao extends Thread {
 	public Vagao() {
 
 		try {
-			imagem = ImageIO.read(new File("imagens/carrinho.png"));
+//			ImageIO.read(getClass().getResource("/imagens/tabuleiro.png")); 
+			imagem = ImageIO.read(getClass().getResource("/imagens/carrinho.png"));
 		} catch (IOException e) {
-			System.out.println("Não foi possível carregar o plano de fundo!!");
+			System.out.println("Não foi possível carregar o carrinho!!");
 			e.printStackTrace();
 		}
 
 		try {
-			imagemInvertida = ImageIO.read(new File("imagens/carrinhoInvertido.png"));
+//			imagemInvertida = ImageIO.read(new File("imagens/carrinhoInvertido.png"));
+			imagemInvertida = ImageIO.read(getClass().getResource("/imagens/carrinhoInvertido.png"));
 		} catch (IOException e) {
-			System.out.println("Não foi possível carregar o plano de fundo!!");
+			System.out.println("Não foi possível carregar o carrinho invertido!!");
 			e.printStackTrace();
 		}
 	}
