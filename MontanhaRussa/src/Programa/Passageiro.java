@@ -379,18 +379,18 @@ public class Passageiro extends Thread {
 		String imagem;
 		
 		//carrega imagem do id
-		imagem = "imagens/passageiro/(" + id + ").png";
+		imagem = "/imagens/passageiro/(" + id +").png";
 		try {
-			idImagem = ImageIO.read(new File(imagem));
+			idImagem = ImageIO.read(getClass().getResource(imagem));
 		} catch (IOException e1) {
-			System.out.println("Não conseguiu carregar a imagem");
+			System.out.println("Não conseguiu carregar a imagem do id passageiro!");
 		}
 		
 		//carrega imagens do passageiro andando
 		for (int i = 0; i < 20; i++) {
 			try {				
-				imagem = "imagens/passageiro/Walk ("+ (i+1)+").png";
-				personagemAndando[i] = ImageIO.read(new File(imagem));
+				imagem = "/imagens/passageiro/Walk (" + (i+1) + ").png";
+				personagemAndando[i] = ImageIO.read(getClass().getResource(imagem));
 			} catch (IOException e) {
 				System.out.println("Não foi possível carregar passageiro andando!!");
 				e.printStackTrace();
@@ -400,8 +400,8 @@ public class Passageiro extends Thread {
 		//carrega imagens do passageiro respirando
 		for (int i = 0; i < 16; i++) {
 			try {
-				imagem = "imagens/passageiro/Idle ("+ (i+1)+").png";
-				personagemRespirando[i] = ImageIO.read(new File(imagem));
+				imagem = "/imagens/passageiro/Idle (" + (i+1) + ").png";
+				personagemRespirando[i] = ImageIO.read(getClass().getResource(imagem));
 			} catch (IOException e) {
 				System.out.println("Não foi possível carregar passageiro respirando!!");
 				e.printStackTrace();
